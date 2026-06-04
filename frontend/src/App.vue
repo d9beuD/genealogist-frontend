@@ -1,11 +1,21 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { defineAsyncComponent } from 'vue'
+import { RouterView } from 'vue-router'
+import { Toaster } from 'vue-sonner'
+
+import 'vue-sonner/style.css'
+
+const VueQueryDevtools = import.meta.env.DEV
+  ? defineAsyncComponent(() =>
+      import('@tanstack/vue-query-devtools').then(
+        ({ VueQueryDevtools }) => VueQueryDevtools,
+      ),
+    )
+  : undefined
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <RouterView />
+  <Toaster />
+  <component :is="VueQueryDevtools" v-if="VueQueryDevtools" />
 </template>
-
-<style scoped></style>
