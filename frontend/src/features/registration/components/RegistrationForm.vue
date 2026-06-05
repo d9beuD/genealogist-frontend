@@ -19,7 +19,7 @@ import {
   Form as VeeValidateForm,
 } from '@/components/ui/form'
 
-import { registrationSchema } from '@/features/registration/schemas/registrationSchema'
+import { createRegistrationSchema } from '@/features/registration/schemas/registrationSchema'
 import type { RegistrationFormData } from '@/features/registration/schemas/registrationSchema'
 import { registerUser } from '@/features/registration/api/registerUser'
 import { AppError } from '@/lib/errors'
@@ -30,6 +30,7 @@ const { t } = useI18n()
 
 const locale = computed(() => i18n.global.locale.value as 'en' | 'fr')
 const messages = computed(() => registrationMessages[locale.value] ?? registrationMessages.en)
+const validationSchema = computed(() => createRegistrationSchema(messages.value.validation))
 
 const acceptedTerms = ref(false)
 
@@ -65,7 +66,7 @@ const onSubmit: SubmissionHandler = async (values, actions) => {
 </script>
 
 <template>
-  <VeeValidateForm :validation-schema="registrationSchema" @submit="onSubmit">
+  <VeeValidateForm :validation-schema="validationSchema" @submit="onSubmit">
     <template #default="{ isSubmitting }">
     <div class="flex flex-col gap-4">
       <FormField v-slot="{ componentField }" name="email">
@@ -83,7 +84,7 @@ const onSubmit: SubmissionHandler = async (values, actions) => {
         </FormItem>
       </FormField>
 
-      <div class="grid grid-cols-2 gap-4">
+      <div class="grid grid-cols-2 items-start gap-4">
         <FormField v-slot="{ componentField }" name="firstname">
           <FormItem>
             <FormLabel>{{ messages.firstname }}</FormLabel>
@@ -153,8 +154,7 @@ const onSubmit: SubmissionHandler = async (values, actions) => {
       <div class="flex items-center gap-2">
         <Checkbox
           id="terms"
-          :checked="acceptedTerms"
-          @update:checked="acceptedTerms = $event"
+          v-model="acceptedTerms"
         />
         <label
           for="terms"
