@@ -19,7 +19,7 @@ const activeTab = ref('register')
     <template #header>
       <Tabs v-model="activeTab">
         <TabsList class="grid w-fit grid-cols-2">
-          <TabsTrigger value="login" @click="router.push({ name: 'auth' })">
+          <TabsTrigger value="login" @click="router.push({ name: 'login' })">
             {{ t('auth.login', 'Sign in') }}
           </TabsTrigger>
           <TabsTrigger value="register">

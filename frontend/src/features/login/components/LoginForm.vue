@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { SubmissionHandler } from 'vee-validate'
+import { useRoute, useRouter } from 'vue-router'
 
 import { toast } from 'vue-sonner'
 import { Button } from '@/components/ui/button'
@@ -22,6 +23,12 @@ import { authenticateUser } from '@/features/login/api/authenticateUser'
 import { AppError } from '@/lib/errors'
 import { loginMessages } from '@/features/login/i18n/loginMessages'
 import { i18n } from '@/i18n'
+import { useAuthStore } from '@/stores/auth'
+
+const route = useRoute()
+const router = useRouter()
+const auth = useAuthStore()
+
 const locale = computed(() => i18n.global.locale.value as 'en' | 'fr')
 const messages = computed(() => loginMessages[locale.value] ?? loginMessages.en)
 const validationSchema = computed(() => createLoginSchema(messages.value.validation))
@@ -34,8 +41,10 @@ const onSubmit: SubmissionHandler = async (values, actions) => {
       email: formData.email,
       password: formData.password,
     })
+    await auth.refreshSession()
 
     toast.success(messages.value.submit)
+    await router.push(typeof route.query.redirect === 'string' ? route.query.redirect : { name: 'home' })
   } catch (error) {
     const appError = error instanceof AppError ? error : new AppError({
       status: null,
