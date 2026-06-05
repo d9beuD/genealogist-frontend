@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import SplitScreenLayout from '@/components/layout/SplitScreenLayout.vue'
+import CenteredCardLayout from '@/components/layout/CenteredCardLayout.vue'
 import { CardHeader, CardTitle } from '@/components/ui/card'
 import RegistrationForm from '@/features/registration/components/RegistrationForm.vue'
 import RegistrationHero from '@/features/registration/components/RegistrationHero.vue'
@@ -15,7 +15,7 @@ const activeTab = ref('register')
 </script>
 
 <template>
-  <SplitScreenLayout>
+  <CenteredCardLayout>
     <template #header>
       <Tabs v-model="activeTab">
         <TabsList class="grid w-fit grid-cols-2">
@@ -40,5 +40,5 @@ const activeTab = ref('register')
     <template #aside>
       <RegistrationHero />
     </template>
-  </SplitScreenLayout>
+  </CenteredCardLayout>
 </template>

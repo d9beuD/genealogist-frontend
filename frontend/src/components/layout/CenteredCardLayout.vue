@@ -4,7 +4,7 @@ import type { HTMLAttributes } from 'vue'
 import { Card, CardContent } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 
-type SplitScreenLayoutProps = {
+type CenteredCardLayoutProps = {
   class?: HTMLAttributes['class']
   cardClass?: HTMLAttributes['class']
   contentClass?: HTMLAttributes['class']
@@ -12,7 +12,7 @@ type SplitScreenLayoutProps = {
   showAsideOnMobile?: boolean
 }
 
-const props = withDefaults(defineProps<SplitScreenLayoutProps>(), {
+const props = withDefaults(defineProps<CenteredCardLayoutProps>(), {
   showAsideOnMobile: false,
 })
 </script>
