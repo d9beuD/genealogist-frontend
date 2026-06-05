@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import type { SubmissionHandler } from 'vee-validate'
 
 import { toast } from 'vue-sonner'
@@ -55,7 +55,7 @@ const onSubmit: SubmissionHandler = async (values, actions) => {
 
 <template>
   <VeeValidateForm :validation-schema="validationSchema" @submit="onSubmit">
-    <template #default="{ isSubmitting }">
+    <template #default="{ isSubmitting, values }">
       <div class="flex flex-col gap-4">
         <FormField v-slot="{ componentField }" name="email">
           <FormItem>
@@ -92,7 +92,7 @@ const onSubmit: SubmissionHandler = async (values, actions) => {
         <Button
           type="submit"
           class="w-full"
-          :disabled="isSubmitting"
+          :disabled="!values.email || !values.password || isSubmitting"
         >
           <template v-if="isSubmitting">
             <Spinner class="mr-2" />
