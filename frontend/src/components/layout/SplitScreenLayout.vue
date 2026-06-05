@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<SplitScreenLayoutProps>(), {
     <div class="w-full max-w-sm md:max-w-4xl">
       <Card :class="cn('overflow-hidden p-0', props.cardClass)">
         <CardContent class="grid p-0 md:grid-cols-2">
-          <div :class="cn('p-6 md:p-8', props.contentClass)">
+          <div :class="cn('bg-card p-6 md:p-8', props.contentClass)">
             <slot />
           </div>
 
