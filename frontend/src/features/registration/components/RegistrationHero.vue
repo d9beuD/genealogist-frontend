@@ -40,8 +40,8 @@ const messages = computed(() => ({
 
     <div class="relative z-10 flex w-full max-w-md flex-col gap-6">
       <div class="flex items-center gap-3">
-        <div class="bg-background/80 flex h-10 w-10 items-center justify-center rounded-lg border shadow-sm">
-          <TreePine class="text-primary h-5 w-5" />
+        <div class="bg-background/80 flex aspect-square h-16 items-center justify-center rounded-lg border shadow-sm">
+          <TreePine class="text-primary h-8 w-8 shrink-0" />
         </div>
         <h1 class="text-foreground text-2xl font-bold">
           {{ messages.title }}
