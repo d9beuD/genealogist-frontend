@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 
@@ -10,12 +11,13 @@ import RegistrationHero from '@/features/registration/components/RegistrationHer
 
 const router = useRouter()
 const { t } = useI18n()
+const activeTab = ref('register')
 </script>
 
 <template>
   <SplitScreenLayout>
     <template #header>
-      <Tabs>
+      <Tabs v-model="activeTab">
         <TabsList class="grid w-fit grid-cols-2">
           <TabsTrigger value="login" @click="router.push({ name: 'auth' })">
             {{ t('auth.login', 'Sign in') }}
