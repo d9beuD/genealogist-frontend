@@ -17,11 +17,11 @@ const messages = computed(() => ({
 </script>
 
 <template>
-  <div class="bg-muted relative flex h-full min-h-[520px] items-center justify-center overflow-hidden p-8 dark:brightness-[0.95] dark:grayscale">
-    <div class="absolute inset-0 bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 dark:from-amber-950/30 dark:via-orange-950/20 dark:to-rose-950/30" />
+  <div class="bg-muted relative flex h-full min-h-[32rem] items-center justify-center overflow-hidden p-8">
+    <div class="absolute inset-0 bg-gradient-to-br from-muted via-background to-muted" />
     <div class="absolute inset-0 overflow-hidden">
       <svg
-        class="absolute inset-0 h-full w-full text-amber-100/60 dark:text-amber-900/20"
+        class="text-border/60 absolute inset-0 h-full w-full dark:text-border/20"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
@@ -40,42 +40,42 @@ const messages = computed(() => ({
 
     <div class="relative z-10 flex w-full max-w-md flex-col gap-6">
       <div class="flex items-center gap-3">
-        <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-amber-200/80 dark:bg-amber-800/50">
-          <TreePine class="w-5 h-5 text-amber-700 dark:text-amber-300" />
+        <div class="bg-background/80 flex h-10 w-10 items-center justify-center rounded-lg border shadow-sm">
+          <TreePine class="text-primary h-5 w-5" />
         </div>
-        <h1 class="text-2xl font-bold text-amber-900 dark:text-amber-100">
+        <h1 class="text-foreground text-2xl font-bold">
           {{ messages.title }}
         </h1>
       </div>
 
-      <p class="text-base text-amber-800/80 dark:text-amber-200/70 leading-relaxed">
+      <p class="text-muted-foreground text-base leading-relaxed">
         {{ messages.subtitle }}
       </p>
 
       <div class="flex flex-col gap-3 mt-2">
         <div class="flex items-center gap-3">
-          <div class="flex items-center justify-center w-8 h-8 rounded-full bg-white/70 dark:bg-amber-900/40 shadow-sm">
-            <Users class="w-4 h-4 text-amber-600 dark:text-amber-400" />
+          <div class="bg-background/70 flex h-8 w-8 items-center justify-center rounded-full border shadow-sm">
+            <Users class="text-primary h-4 w-4" />
           </div>
-          <span class="text-sm text-amber-800/90 dark:text-amber-200/80">
+          <span class="text-muted-foreground text-sm">
             {{ messages.features[0] }}
           </span>
         </div>
 
         <div class="flex items-center gap-3">
-          <div class="flex items-center justify-center w-8 h-8 rounded-full bg-white/70 dark:bg-amber-900/40 shadow-sm">
-            <BookOpen class="w-4 h-4 text-amber-600 dark:text-amber-400" />
+          <div class="bg-background/70 flex h-8 w-8 items-center justify-center rounded-full border shadow-sm">
+            <BookOpen class="text-primary h-4 w-4" />
           </div>
-          <span class="text-sm text-amber-800/90 dark:text-amber-200/80">
+          <span class="text-muted-foreground text-sm">
             {{ messages.features[1] }}
           </span>
         </div>
 
         <div class="flex items-center gap-3">
-          <div class="flex items-center justify-center w-8 h-8 rounded-full bg-white/70 dark:bg-amber-900/40 shadow-sm">
-            <TreePine class="w-4 h-4 text-amber-600 dark:text-amber-400" />
+          <div class="bg-background/70 flex h-8 w-8 items-center justify-center rounded-full border shadow-sm">
+            <TreePine class="text-primary h-4 w-4" />
           </div>
-          <span class="text-sm text-amber-800/90 dark:text-amber-200/80">
+          <span class="text-muted-foreground text-sm">
             {{ messages.features[2] }}
           </span>
         </div>

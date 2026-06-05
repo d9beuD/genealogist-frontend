@@ -18,8 +18,10 @@ const props = withDefaults(defineProps<SplitScreenLayoutProps>(), {
 </script>
 
 <template>
-  <main :class="cn('bg-muted flex min-h-svh flex-col items-center justify-center p-6 md:p-10', props.class)">
-    <div class="w-full max-w-sm md:max-w-4xl">
+  <main :class="cn('bg-muted relative flex min-h-svh flex-col items-center justify-center p-6 md:p-10', props.class)">
+    <div class="bg-muted-foreground/20 absolute inset-0" />
+
+    <div class="relative w-full max-w-sm md:max-w-4xl">
       <Card :class="cn('overflow-hidden p-0', props.cardClass)">
         <CardContent class="grid p-0 md:grid-cols-2">
           <div :class="cn('bg-card p-6 md:p-8', props.contentClass)">
