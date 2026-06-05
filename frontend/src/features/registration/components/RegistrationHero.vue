@@ -17,7 +17,8 @@ const messages = computed(() => ({
 </script>
 
 <template>
-  <div class="relative flex flex-col justify-center h-full p-8 bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 dark:from-amber-950/30 dark:via-orange-950/20 dark:to-rose-950/30">
+  <div class="bg-muted relative flex h-full min-h-[520px] items-center justify-center overflow-hidden p-8 dark:brightness-[0.95] dark:grayscale">
+    <div class="absolute inset-0 bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 dark:from-amber-950/30 dark:via-orange-950/20 dark:to-rose-950/30" />
     <div class="absolute inset-0 overflow-hidden">
       <svg
         class="absolute inset-0 h-full w-full text-amber-100/60 dark:text-amber-900/20"
@@ -37,7 +38,7 @@ const messages = computed(() => ({
       </svg>
     </div>
 
-    <div class="relative z-10 flex flex-col gap-6">
+    <div class="relative z-10 flex w-full max-w-md flex-col gap-6">
       <div class="flex items-center gap-3">
         <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-amber-200/80 dark:bg-amber-800/50">
           <TreePine class="w-5 h-5 text-amber-700 dark:text-amber-300" />
