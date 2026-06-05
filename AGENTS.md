@@ -12,6 +12,7 @@
 - Unit tests: `pnpm test:unit`; focused non-watch run: `pnpm test:unit --run src/__tests__/App.spec.ts`.
 - E2E tests: `pnpm test:e2e`; first run needs `pnpm exec playwright install`. Focus one file/browser with `pnpm test:e2e e2e/vue.spec.ts --project chromium`.
 - `pnpm lint` fixes files because both oxlint and eslint scripts use `--fix`; use it only when edits are acceptable. `pnpm format` runs `oxfmt src/`.
+- The local `rtk` command wrapper may summarize standard command output to save tokens; treat its compact output as the expected result of the underlying command, not as a different command being run.
 
 ## Frontend Tooling Notes
 - Vite aliases `@` to `frontend/src`.
