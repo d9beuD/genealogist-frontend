@@ -33,6 +33,7 @@ security:
                 check_path: /api/token/refresh
         main:
             lazy: true
+            pattern: ^/((?!api/).*)
             provider: app_user_provider
 
             form_login:
@@ -71,6 +72,8 @@ security:
         - { path: ^/api/register$, roles: PUBLIC_ACCESS }
         - { path: ^/api/docs, roles: PUBLIC_ACCESS }
         - { path: ^/api/contexts, roles: PUBLIC_ACCESS }
+        - { path: ^/api/index, roles: PUBLIC_ACCESS }
+        - { path: ^/api$, roles: PUBLIC_ACCESS }
         - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/project, roles: ROLE_USER }
         - { path: ^/person, roles: ROLE_USER }

@@ -66,13 +66,18 @@ final class ApiSecuritySubscriber implements EventSubscriberInterface
         $response = $responseEvent->getResponse();
         $headers = $response->headers;
 
-        $headers->set('X-Content-Type-Options', 'nosniff');
-        $headers->set('X-Frame-Options', 'DENY');
-        $headers->set('Referrer-Policy', 'no-referrer');
-        $headers->set('Content-Security-Policy', "default-src 'none'; frame-ancestors 'none'");
-        $headers->set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
-
         $request = $responseEvent->getRequest();
+
+        if (str_starts_with($request->getPathInfo(), '/api/')) {
+            $headers->set('X-Content-Type-Options', 'nosniff');
+            $headers->set('X-Frame-Options', 'DENY');
+            $headers->set('Referrer-Policy', 'no-referrer');
+            $headers->set('Content-Security-Policy', "default-src 'none'; frame-ancestors 'none'");
+
+            if ($request->isSecure()) {
+                $headers->set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+            }
+        }
         if (!\in_array($request->getPathInfo(), ['/api/auth', '/api/token/refresh'], true) || !$response->isSuccessful()) {
             return;
         }
