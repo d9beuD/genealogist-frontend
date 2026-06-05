@@ -26,9 +26,9 @@ const props = withDefaults(defineProps<SplitScreenLayoutProps>(), {
         <slot name="header" />
       </div>
 
-      <Card :class="cn('overflow-hidden p-0', props.cardClass)">
-        <CardContent class="grid p-0 md:grid-cols-2">
-          <div :class="cn('bg-card p-6 md:p-8', props.contentClass)">
+      <Card :class="cn('overflow-hidden p-0 min-h-[35rem]', props.cardClass)">
+        <CardContent class="flex flex-1 grid p-0 md:grid-cols-2">
+          <div :class="cn('bg-card p-6 md:p-8 min-h-full', props.contentClass)">
             <slot />
           </div>
 
