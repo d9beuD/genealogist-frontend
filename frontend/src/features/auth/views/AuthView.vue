@@ -12,28 +12,30 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <Tabs>
-    <TabsList class="grid w-full grid-cols-2">
-      <TabsTrigger value="login">
-        {{ t('auth.login', 'Sign in') }}
-      </TabsTrigger>
-      <TabsTrigger value="register" @click="router.push({ name: 'register' })">
-        {{ t('auth.register', 'Create account') }}
-      </TabsTrigger>
-    </TabsList>
+  <SplitScreenLayout>
+    <template #header>
+      <Tabs>
+        <TabsList class="grid w-fit grid-cols-2">
+          <TabsTrigger value="login">
+            {{ t('auth.login', 'Sign in') }}
+          </TabsTrigger>
+          <TabsTrigger value="register" @click="router.push({ name: 'register' })">
+            {{ t('auth.register', 'Create account') }}
+          </TabsTrigger>
+        </TabsList>
+      </Tabs>
+    </template>
 
-    <SplitScreenLayout>
-      <CardHeader class="px-0 pb-6 text-center">
-        <CardTitle class="text-2xl font-bold">
-          {{ t('login.title', 'Welcome back') }}
-        </CardTitle>
-      </CardHeader>
+    <CardHeader class="px-0 pb-6 text-center">
+      <CardTitle class="text-2xl font-bold">
+        {{ t('login.title', 'Welcome back') }}
+      </CardTitle>
+    </CardHeader>
 
-      <LoginForm />
+    <LoginForm />
 
-      <template #aside>
-        <RegistrationHero />
-      </template>
-    </SplitScreenLayout>
-  </Tabs>
+    <template #aside>
+      <RegistrationHero />
+    </template>
+  </SplitScreenLayout>
 </template>
