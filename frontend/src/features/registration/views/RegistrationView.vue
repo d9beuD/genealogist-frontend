@@ -1,26 +1,40 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import SplitScreenLayout from '@/components/layout/SplitScreenLayout.vue'
 import { CardHeader, CardTitle } from '@/components/ui/card'
 import RegistrationForm from '@/features/registration/components/RegistrationForm.vue'
 import RegistrationHero from '@/features/registration/components/RegistrationHero.vue'
 
+const router = useRouter()
 const { t } = useI18n()
 </script>
 
 <template>
-  <SplitScreenLayout>
-    <CardHeader class="px-0 pb-6 text-center">
-      <CardTitle class="text-2xl font-bold">
-        {{ t('registration.title', 'Create your account') }}
-      </CardTitle>
-    </CardHeader>
+  <Tabs>
+    <TabsList class="grid w-full grid-cols-2">
+      <TabsTrigger value="login" @click="router.push({ name: 'auth' })">
+        {{ t('auth.login', 'Sign in') }}
+      </TabsTrigger>
+      <TabsTrigger value="register">
+        {{ t('auth.register', 'Create account') }}
+      </TabsTrigger>
+    </TabsList>
 
-    <RegistrationForm />
+    <SplitScreenLayout>
+      <CardHeader class="px-0 pb-6 text-center">
+        <CardTitle class="text-2xl font-bold">
+          {{ t('registration.title', 'Create your account') }}
+        </CardTitle>
+      </CardHeader>
 
-    <template #aside>
-      <RegistrationHero />
-    </template>
-  </SplitScreenLayout>
+      <RegistrationForm />
+
+      <template #aside>
+        <RegistrationHero />
+      </template>
+    </SplitScreenLayout>
+  </Tabs>
 </template>

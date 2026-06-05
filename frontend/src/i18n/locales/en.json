@@ -2,6 +2,14 @@
   "app": {
     "name": "Genealogist"
   },
+  "auth": {
+    "login": "Sign in",
+    "register": "Create account"
+  },
+  "login": {
+    "title": "Welcome back",
+    "subtitle": "Sign in to access your family tree"
+  },
   "registration": {
     "title": "Create Your Family Space",
     "subtitle": "Start building, preserving, and sharing your story.",
