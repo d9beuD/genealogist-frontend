@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Tree;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -21,6 +22,26 @@ class TreeRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Tree::class);
+    }
+
+    public function save(Tree $tree): void
+    {
+        $this->getEntityManager()->persist($tree);
+        $this->getEntityManager()->flush();
+    }
+
+    /**
+     * @return list<Tree>
+     */
+    public function findOwnedBy(User $user): array
+    {
+        return $this->createQueryBuilder('tree')
+            ->andWhere('tree.user = :user')
+            ->setParameter('user', $user)
+            ->orderBy('tree.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
     //    /**
