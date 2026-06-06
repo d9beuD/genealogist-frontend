@@ -99,11 +99,11 @@ function isActive(path: string): boolean {
       <SidebarRail />
     </Sidebar>
 
-    <SidebarInset>
-      <header class="flex h-12 items-center gap-2 border-b px-4">
+    <SidebarInset class="flex flex-1 flex-col overflow-hidden">
+      <header class="flex h-12 shrink-0 items-center gap-2 border-b px-4">
         <SidebarTrigger />
       </header>
-      <main class="flex-1 p-6">
+      <main class="flex-1 overflow-auto p-6">
         <slot />
       </main>
     </SidebarInset>
