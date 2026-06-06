@@ -19,9 +19,6 @@ jobs:
   quality:
     name: Frontend type, lint, and unit tests
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -37,7 +34,7 @@ jobs:
         with:
           node-version: 26
           cache: pnpm
-          cache-dependency-path: frontend/pnpm-lock.yaml
+          cache-dependency-path: pnpm-lock.yaml
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -57,9 +54,6 @@ jobs:
   e2e:
     name: Frontend Playwright tests
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -75,7 +69,7 @@ jobs:
         with:
           node-version: 26
           cache: pnpm
-          cache-dependency-path: frontend/pnpm-lock.yaml
+          cache-dependency-path: pnpm-lock.yaml
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
