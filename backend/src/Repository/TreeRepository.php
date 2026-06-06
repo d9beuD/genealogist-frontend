@@ -24,6 +24,12 @@ class TreeRepository extends ServiceEntityRepository
         parent::__construct($registry, Tree::class);
     }
 
+    public function save(Tree $tree): void
+    {
+        $this->getEntityManager()->persist($tree);
+        $this->getEntityManager()->flush();
+    }
+
     /**
      * @return list<Tree>
      */

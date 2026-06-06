@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final class TreesTest extends WebTestCase
@@ -76,6 +77,53 @@ final class TreesTest extends WebTestCase
         }
     }
 
+    public function testPostTreesCreatesTreeOwnedByAuthenticatedUser(): void
+    {
+        $user = $this->createUser('trees-creator@example.com', 'password');
+        $this->login('trees-creator@example.com');
+
+        $this->client->jsonRequest('POST', '/api/trees', [
+            'name' => 'Created tree',
+        ]);
+
+        self::assertResponseStatusCodeSame(201);
+        self::assertResponseHeaderSame('content-type', 'application/json; charset=utf-8');
+
+        $response = json_decode((string) $this->client->getResponse()->getContent(), true, flags: JSON_THROW_ON_ERROR);
+
+        self::assertArrayHasKey('id', $response);
+        self::assertSame('Created tree', $response['name']);
+        self::assertArrayHasKey('createdAt', $response);
+        self::assertArrayNotHasKey('user', $response);
+        self::assertArrayNotHasKey('members', $response);
+
+        $tree = $this->entityManager->getRepository(Tree::class)->find($response['id']);
+
+        self::assertNotNull($tree);
+        self::assertSame($user->getId(), $tree->getUser()?->getId());
+    }
+
+    public function testPostTreesRequiresCsrfProtection(): void
+    {
+        $this->client->jsonRequest('POST', '/api/trees', [
+            'name' => 'Unauthenticated tree',
+        ]);
+
+        self::assertResponseStatusCodeSame(403);
+    }
+
+    public function testPostTreesRejectsBlankName(): void
+    {
+        $this->createUser('trees-invalid@example.com', 'password');
+        $this->login('trees-invalid@example.com');
+
+        $this->client->jsonRequest('POST', '/api/trees', [
+            'name' => '',
+        ]);
+
+        self::assertResponseStatusCodeSame(422);
+    }
+
     private function createUser(string $email, string $plainPassword): User
     {
         $user = new User()
@@ -107,6 +155,31 @@ final class TreesTest extends WebTestCase
         $this->entityManager->flush();
     }
 
+    private function login(string $email): void
+    {
+        $this->client->jsonRequest('POST', '/api/auth', [
+            'email' => $email,
+            'password' => 'password',
+        ]);
+        self::assertResponseIsSuccessful();
+
+        $csrfCookie = $this->getResponseCookie('csrf_token');
+        self::assertNotNull($csrfCookie);
+
+        $this->client->setServerParameter('HTTP_X_CSRF_TOKEN', $csrfCookie->getValue());
+    }
+
+    private function getResponseCookie(string $name): ?Cookie
+    {
+        foreach ($this->client->getResponse()->headers->getCookies() as $cookie) {
+            if ($cookie->getName() === $name) {
+                return $cookie;
+            }
+        }
+
+        return null;
+    }
+
     private function ensureSchemaExists(): void
     {
         $schemaTool = new SchemaTool($this->entityManager);
@@ -121,6 +194,10 @@ final class TreesTest extends WebTestCase
         ;
         $this->entityManager->createQuery('DELETE FROM App\Entity\Tree tree WHERE tree.name = :name')
             ->setParameter('name', 'Other tree')
+            ->execute()
+        ;
+        $this->entityManager->createQuery('DELETE FROM App\Entity\Tree tree WHERE tree.name IN (:names)')
+            ->setParameter('names', ['Created tree', 'Unauthenticated tree'])
             ->execute()
         ;
         $this->entityManager->createQuery('DELETE FROM App\Entity\User user WHERE user.email LIKE :pattern')
