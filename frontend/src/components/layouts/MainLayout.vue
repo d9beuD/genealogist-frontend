@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Calendar, Folder, House, LogOut, Search, User } from '@lucide/vue'
+import { Folder, House, LogOut, User } from '@lucide/vue'
 import { useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import {
@@ -58,30 +58,6 @@ function isActive(path: string): boolean {
                   <router-link to="/trees">
                     <Folder />
                     <span>Trees</span>
-                  </router-link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton as-child :data-active="isActive('/search')">
-                  <router-link to="/search">
-                    <Search />
-                    <span>Search</span>
-                  </router-link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton as-child :data-active="isActive('/people')">
-                  <router-link to="/people">
-                    <User />
-                    <span>People</span>
-                  </router-link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton as-child :data-active="isActive('/calendar')">
-                  <router-link to="/calendar">
-                    <Calendar />
-                    <span>Calendar</span>
                   </router-link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
