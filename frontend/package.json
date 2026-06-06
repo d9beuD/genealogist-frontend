@@ -39,6 +39,7 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@api-platform/create-client": "^0.10.0",
     "@playwright/test": "^1.59.1",
     "@tsconfig/node26": "^26.0.0",
     "@types/jsdom": "^28.0.1",

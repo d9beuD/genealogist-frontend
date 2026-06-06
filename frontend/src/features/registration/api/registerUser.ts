@@ -1,9 +1,7 @@
+import type { UserRegistration } from '@/interfaces/userregistration'
 import { backend } from '@/api'
 
-export type RegisterPayload = {
-  email: string
-  firstname: string
-  lastname: string
+export type RegisterPayload = UserRegistration & {
   plainPassword: string
 }
 

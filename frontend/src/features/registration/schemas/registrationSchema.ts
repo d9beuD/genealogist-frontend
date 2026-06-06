@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { toTypedSchema } from '@vee-validate/zod'
+import type { UserRegistration } from '@/interfaces/userregistration'
 
 export type RegistrationValidationMessages = {
   emailRequired: string
@@ -34,4 +35,7 @@ export function createRegistrationSchema(messages: RegistrationValidationMessage
   return toTypedSchema(createBaseSchema(messages))
 }
 
-export type RegistrationFormData = z.infer<ReturnType<typeof createBaseSchema>>
+export type RegistrationFormData = UserRegistration & {
+  plainPassword: string
+  confirmPassword: string
+}
