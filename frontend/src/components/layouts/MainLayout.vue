@@ -19,6 +19,7 @@ import {
   SidebarTrigger,
 } from '@/components/ui/sidebar'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import TreeSwitcher from '@/components/layouts/TreeSwitcher.vue'
 
 const auth = useAuthStore()
 const route = useRoute()
@@ -33,11 +34,8 @@ function isActive(path: string): boolean {
 <template>
   <SidebarProvider>
     <Sidebar>
-      <SidebarHeader class="border-b px-6 py-4">
-        <div class="flex items-center gap-2 font-semibold">
-          <Folder class="h-5 w-5" />
-          <span>Genealogist</span>
-        </div>
+      <SidebarHeader class="border-b px-2 py-2">
+        <TreeSwitcher />
       </SidebarHeader>
 
       <SidebarContent>
