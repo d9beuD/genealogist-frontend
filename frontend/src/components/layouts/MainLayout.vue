@@ -42,8 +42,8 @@ function isActive(path: string): boolean {
 </script>
 
 <template>
-  <SidebarProvider>
-    <Sidebar>
+  <SidebarProvider class="h-svh">
+    <Sidebar class="h-full">
       <SidebarHeader class="px-2 py-2">
         <TreeSwitcher @select="handleSelectTree" @create="handleCreateTree" />
       </SidebarHeader>
@@ -99,7 +99,7 @@ function isActive(path: string): boolean {
       <SidebarRail />
     </Sidebar>
 
-    <SidebarInset class="flex flex-1 flex-col overflow-hidden">
+    <SidebarInset class="flex min-h-svh flex-col">
       <header class="flex h-12 shrink-0 items-center gap-2 border-b px-4">
         <SidebarTrigger />
       </header>
