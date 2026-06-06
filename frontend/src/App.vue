@@ -16,11 +16,6 @@ const VueQueryDevtools = import.meta.env.DEV
 
 <template>
   <RouterView />
-  <Toaster
-    duration={6000}
-    toastOptions={{
-      error: { duration: 10000 },
-    }}
-  />
+  <Toaster :duration="10000" />
   <component :is="VueQueryDevtools" v-if="VueQueryDevtools" />
 </template>
