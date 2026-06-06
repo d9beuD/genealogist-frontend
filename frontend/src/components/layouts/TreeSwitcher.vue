@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Check, ChevronsUpDown, Folder, FolderOpen, Plus } from '@lucide/vue'
 import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useTreeStore } from '@/stores/tree'
 
 import {
@@ -16,19 +17,21 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
 
+const { t } = useI18n()
 const treeStore = useTreeStore()
 
 const open = ref(false)
 
 const selectedTreeName = computed(() => {
-  return treeStore.selectedTree?.name ?? 'No tree selected'
+  return treeStore.selectedTree?.name ?? t('features.tree.noTreeSelected')
 })
 
 const treeCount = computed(() => treeStore.trees.length)
 
 const treeLabel = computed(() => {
-  if (treeCount.value === 0) return 'Select a tree'
-  return `${treeCount.value} tree${treeCount.value > 1 ? 's' : ''}`
+  if (treeCount.value === 0) return t('features.tree.selectATree')
+  const key = treeCount.value > 1 ? 'treeCountOther' : 'treeCountOne'
+  return t(`features.tree.${key}`, { count: treeCount.value })
 })
 
 const isIconFolderOpen = computed(() => treeStore.hasTree)
@@ -76,7 +79,7 @@ const isIconFolderOpen = computed(() => treeStore.hasTree)
           <DropdownMenuSeparator />
           <DropdownMenuItem @select="() => { open = false }">
             <Plus class="mr-2" />
-            Create new tree
+            {{ t('features.tree.createNewTree') }}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

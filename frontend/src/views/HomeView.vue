@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { FolderOpen, Plus } from '@lucide/vue'
 import { storeToRefs } from 'pinia'
+import { useI18n } from 'vue-i18n'
 import { useTreeStore } from '@/stores/tree'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
+const { t } = useI18n()
 const treeStore = useTreeStore()
 const { trees, isLoading } = storeToRefs(treeStore)
 </script>
@@ -14,9 +16,9 @@ const { trees, isLoading } = storeToRefs(treeStore)
   <main class="mx-auto max-w-2xl">
     <Card v-if="trees.length > 0">
       <CardHeader>
-        <CardTitle>Your Trees</CardTitle>
+        <CardTitle>{{ t('features.tree.yourTrees') }}</CardTitle>
         <CardDescription>
-          Select a tree to start working on your family genealogy.
+          {{ t('features.tree.selectTreeDescription') }}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -36,21 +38,21 @@ const { trees, isLoading } = storeToRefs(treeStore)
 
     <Card v-else-if="!isLoading">
       <CardHeader class="text-center">
-        <CardTitle>No trees yet</CardTitle>
+        <CardTitle>{{ t('features.tree.noTreesYet') }}</CardTitle>
         <CardDescription>
-          Create your first family tree to get started.
+          {{ t('features.tree.createFirstTreeDescription') }}
         </CardDescription>
       </CardHeader>
       <CardContent class="flex justify-center">
         <Button>
           <Plus class="mr-2" />
-          Create Tree
+          {{ t('features.tree.createTree') }}
         </Button>
       </CardContent>
     </Card>
 
     <div v-else class="flex items-center justify-center p-8">
-      <p class="text-sm text-muted-foreground">Loading...</p>
+      <p class="text-sm text-muted-foreground">{{ t('features.tree.loading') }}</p>
     </div>
   </main>
 </template>
