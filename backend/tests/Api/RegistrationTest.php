@@ -74,6 +74,14 @@ class RegistrationTest extends WebTestCase
         self::assertResponseIsSuccessful();
     }
 
+    public function testGetRegisterReturnsEmptyCollectionForApiDiscovery(): void
+    {
+        $this->client->jsonRequest('GET', '/api/register');
+
+        self::assertResponseStatusCodeSame(200);
+        self::assertSame([], json_decode((string) $this->client->getResponse()->getContent(), true, flags: JSON_THROW_ON_ERROR));
+    }
+
     public function testRegisterRejectsInvalidEmail(): void
     {
         $payload = $this->validPayload();
