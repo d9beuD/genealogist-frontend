@@ -34,7 +34,7 @@ function isActive(path: string): boolean {
 <template>
   <SidebarProvider>
     <Sidebar>
-      <SidebarHeader class="border-b px-2 py-2">
+      <SidebarHeader class="px-2 py-2">
         <TreeSwitcher />
       </SidebarHeader>
 
