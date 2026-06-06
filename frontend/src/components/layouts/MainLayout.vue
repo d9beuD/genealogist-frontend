@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Folder, House, LogOut, User } from '@lucide/vue'
+import { onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useTreeStore } from '@/stores/tree'
@@ -26,13 +27,9 @@ const auth = useAuthStore()
 const treeStore = useTreeStore()
 const route = useRoute()
 
-function handleSelectTree(treeId: number) {
-  treeStore.selectTree(treeId)
-}
-
-function handleCreateTree() {
-  // TODO: navigate to tree creation
-}
+onMounted(() => {
+  treeStore.loadTrees()
+})
 
 function isActive(path: string): boolean {
   return path === '/'
@@ -45,7 +42,7 @@ function isActive(path: string): boolean {
   <SidebarProvider class="h-svh">
     <Sidebar class="h-full">
       <SidebarHeader class="px-2 py-2">
-        <TreeSwitcher @select="handleSelectTree" @create="handleCreateTree" />
+        <TreeSwitcher />
       </SidebarHeader>
 
       <SidebarContent>
