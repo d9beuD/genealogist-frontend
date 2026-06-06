@@ -6,7 +6,7 @@ export type LoginPayload = {
 }
 
 export async function authenticateUser(payload: LoginPayload): Promise<void> {
-  return backend('/api/auth', {
+  return backend('/auth', {
     method: 'POST',
     body: payload,
   })
