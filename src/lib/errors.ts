@@ -33,7 +33,7 @@ export class AppError extends Error {
     isOperational = true,
     cause,
   }: AppErrorOptions) {
-    super(message)
+    super(message, { cause })
     this.name = 'AppError'
     this.status = status
     this.code = code
