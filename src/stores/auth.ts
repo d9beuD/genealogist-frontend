@@ -60,13 +60,11 @@ export const useAuthStore = defineStore('auth', () => {
       }).catch((sessionError: unknown) => {
         const appError = toAppError(sessionError)
 
-        if (appError.status === 401 || appError.status === 403) {
-          setAnonymous()
-          return null
+        if (appError.status !== 401 && appError.status !== 403) {
+          toast.error(appError.message)
         }
 
-        setError(appError)
-        toast.error(appError.message)
+        setAnonymous()
         return null
       }).finally(() => {
         initialSessionPromise = null
