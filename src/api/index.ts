@@ -1,10 +1,10 @@
-import { ofetch } from 'ofetch'
-import { toAppError } from '@/lib/errors'
-import { addToRetryQueue, markAsRetry, refreshAccessToken } from './refresh'
+import { ofetch, type FetchOptions } from 'ofetch'
+import { AppError, toAppError } from '@/lib/errors'
+import { refreshAccessToken } from './refresh'
 
 const baseURL = import.meta.env.VITE_BACKEND_BASE_URL
 
-export const backend = ofetch.create({
+const rawBackend = ofetch.create({
   baseURL,
   credentials: 'include',
   headers: {
@@ -14,18 +14,21 @@ export const backend = ofetch.create({
   onRequestError({ error }) {
     throw toAppError(error)
   },
-  onResponseError({ error, response, options }) {
-    const appError = toAppError(Object.assign(error ?? new Error(response.statusText), { data: response._data, response }))
-
-    if (appError.status === 401) {
-      const relativeUrl = response.url.replace(baseURL, '')
-      addToRetryQueue(relativeUrl, options as unknown as Record<string, unknown>)
-      refreshAccessToken()
-      markAsRetry()
-    }
-
-    throw appError
+  onResponseError({ error, response }) {
+    throw toAppError(Object.assign(error ?? new Error(response.statusText), { data: response._data, response }))
   },
 })
+
+export async function backend<T = unknown>(request: string, options?: FetchOptions): Promise<T> {
+  try {
+    return await rawBackend<T>(request, options as FetchOptions<'json'>)
+  } catch (err) {
+    if (err instanceof AppError && err.status === 401) {
+      await refreshAccessToken()
+      return await rawBackend<T>(request, options as FetchOptions<'json'>)
+    }
+    throw err
+  }
+}
 
 export default {}
