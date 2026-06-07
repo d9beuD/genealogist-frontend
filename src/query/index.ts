@@ -11,14 +11,26 @@ export const queryClient = new QueryClient({
         return
       }
 
-      toast.error(toAppError(error).message)
+      const appError = toAppError(error)
+      if (appError.status === 401) {
+        return
+      }
+
+      toast.error(appError.message)
     },
   }),
   queryCache: new QueryCache({
     onError(error, query) {
-      if (query.state.data !== undefined) {
-        toast.error(toAppError(error).message)
+      if (query.state.data === undefined) {
+        return
       }
+
+      const appError = toAppError(error)
+      if (appError.status === 401) {
+        return
+      }
+
+      toast.error(appError.message)
     },
   }),
   defaultOptions: {
