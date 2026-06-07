@@ -3,9 +3,10 @@ import { ofetch } from 'ofetch'
 import { queryClient } from '@/query'
 import { useAuthStore } from '@/stores/auth'
 import { pinia } from '@/stores'
+import { env } from '@/env'
 import { toAppError } from '@/lib/errors'
 
-const baseURL = import.meta.env.VITE_BACKEND_BASE_URL
+const baseURL = env.VITE_BACKEND_BASE_URL
 
 let refreshPromise: Promise<void> | null = null
 

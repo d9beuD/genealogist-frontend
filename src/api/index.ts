@@ -1,8 +1,9 @@
 import { ofetch, type FetchOptions } from 'ofetch'
 import { AppError, toAppError } from '@/lib/errors'
+import { env } from '@/env'
 import { refreshAccessToken } from './refresh'
 
-const baseURL = import.meta.env.VITE_BACKEND_BASE_URL
+const baseURL = env.VITE_BACKEND_BASE_URL
 
 const rawBackend = ofetch.create({
   baseURL,
