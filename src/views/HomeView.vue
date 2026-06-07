@@ -6,40 +6,57 @@ import { useTreesQuery } from '@/features/tree/api/trees'
 import { useTreeStore } from '@/stores/tree'
 
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import CreateTreeDialog from '@/features/tree/components/CreateTreeDialog.vue'
 
-const { t } = useI18n()
+const { t, d } = useI18n()
 const treeStore = useTreeStore()
 const { data: trees, isLoading } = useTreesQuery()
 const treeList = computed(() => trees.value ?? [])
 </script>
 
 <template>
-  <main class="mx-auto max-w-2xl">
-    <Card v-if="treeList.length > 0">
-      <CardHeader>
-        <CardTitle>{{ t('features.tree.yourTrees') }}</CardTitle>
-        <CardDescription>
-          {{ t('features.tree.selectTreeDescription') }}
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div class="grid gap-3">
-          <Button
-            v-for="tree in treeList"
-            :key="tree.id"
-            variant="outline"
-            class="justify-start gap-3 text-left"
-            @click="treeStore.selectTree(tree.id)"
-          >
-            <FolderOpen class="shrink-0" />
-            <span>{{ tree.name }}</span>
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+  <main class="w-full">
+    <template v-if="treeList.length > 0">
+      <div class="mb-4 flex items-center justify-between">
+        <h1 class="text-xl font-semibold">{{ t('features.tree.yourTrees') }}</h1>
+        <CreateTreeDialog>
+          <template #trigger>
+            <Button>
+              <Plus />
+              {{ t('features.tree.createTree') }}
+            </Button>
+          </template>
+        </CreateTreeDialog>
+      </div>
 
-    <Card v-else-if="!isLoading">
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <Card
+          v-for="tree in treeList"
+          :key="tree.id"
+          class="cursor-pointer transition hover:border-primary"
+          @click="treeStore.selectTree(tree.id)"
+        >
+          <CardHeader>
+            <CardTitle class="flex items-center gap-2">
+              <FolderOpen class="shrink-0" />
+              <span class="truncate">{{ tree.name }}</span>
+            </CardTitle>
+            <CardDescription v-if="tree.createdAt">
+              {{ t('features.tree.createdOn', { date: d(new Date(tree.createdAt), 'medium') }) }}
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      </div>
+    </template>
+
+    <Card v-else-if="!isLoading" class="mx-auto max-w-2xl">
       <CardHeader class="text-center">
         <CardTitle>{{ t('features.tree.noTreesYet') }}</CardTitle>
         <CardDescription>
@@ -47,10 +64,14 @@ const treeList = computed(() => trees.value ?? [])
         </CardDescription>
       </CardHeader>
       <CardContent class="flex justify-center">
-        <Button>
-          <Plus class="mr-2" />
-          {{ t('features.tree.createTree') }}
-        </Button>
+        <CreateTreeDialog>
+          <template #trigger>
+            <Button>
+              <Plus />
+              {{ t('features.tree.createTree') }}
+            </Button>
+          </template>
+        </CreateTreeDialog>
       </CardContent>
     </Card>
 

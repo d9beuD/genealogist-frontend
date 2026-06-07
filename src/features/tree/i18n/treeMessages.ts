@@ -13,6 +13,21 @@ export const treeMessages = {
     createFirstTreeDescription: 'Create your first family tree to get started.',
     createTree: 'Create Tree',
     loading: 'Loading...',
+    createdOn: 'Created on {date}',
+    createDialog: {
+      title: 'Create a new tree',
+      description: 'Give your family tree a name. You can rename it later.',
+      nameLabel: 'Tree name',
+      namePlaceholder: 'e.g. Smith Family',
+      cancel: 'Cancel',
+      submit: 'Create tree',
+      success: 'Tree created',
+      serverError: 'Could not create the tree. Please try again.',
+      validation: {
+        nameRequired: 'Please enter a name for your tree.',
+        nameMax: 'Tree name must be 120 characters or less.',
+      },
+    },
   },
   fr: {
     noTreeSelected: 'Aucun arbre sélectionné',
@@ -26,5 +41,20 @@ export const treeMessages = {
     createFirstTreeDescription: 'Créez votre premier arbre généalogique pour commencer.',
     createTree: 'Créer un arbre',
     loading: 'Chargement...',
+    createdOn: 'Créé le {date}',
+    createDialog: {
+      title: 'Créer un nouvel arbre',
+      description: 'Donnez un nom à votre arbre généalogique. Vous pourrez le modifier plus tard.',
+      nameLabel: "Nom de l'arbre",
+      namePlaceholder: 'ex. Famille Dupont',
+      cancel: 'Annuler',
+      submit: "Créer l'arbre",
+      success: 'Arbre créé',
+      serverError: "Impossible de créer l'arbre. Veuillez réessayer.",
+      validation: {
+        nameRequired: 'Veuillez saisir un nom pour votre arbre.',
+        nameMax: "Le nom de l'arbre ne doit pas dépasser 120 caractères.",
+      },
+    },
   },
 } satisfies FeatureMessages
