@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { Check, ChevronsUpDown, Folder, FolderOpen, Plus } from '@lucide/vue'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useTreesQuery } from '@/features/tree/api/trees'
 import { useTreeStore } from '@/stores/tree'
 
 import {
@@ -19,14 +20,20 @@ import {
 
 const { t } = useI18n()
 const treeStore = useTreeStore()
+const { data: trees } = useTreesQuery()
 
 const open = ref(false)
 
-const selectedTreeName = computed(() => {
-  return treeStore.selectedTree?.name ?? t('features.tree.noTreeSelected')
+const treeList = computed(() => trees.value ?? [])
+const selectedTree = computed(() => {
+  return treeList.value.find(tree => tree.id === treeStore.selectedTreeId) ?? null
 })
 
-const treeCount = computed(() => treeStore.trees.length)
+const selectedTreeName = computed(() => {
+  return selectedTree.value?.name ?? t('features.tree.noTreeSelected')
+})
+
+const treeCount = computed(() => treeList.value.length)
 
 const treeLabel = computed(() => {
   if (treeCount.value === 0) return t('features.tree.selectATree')
@@ -34,7 +41,17 @@ const treeLabel = computed(() => {
   return t(`features.tree.${key}`, { count: treeCount.value })
 })
 
-const isIconFolderOpen = computed(() => treeStore.hasTree)
+const isIconFolderOpen = computed(() => selectedTree.value !== null)
+
+watch(treeList, (nextTrees) => {
+  if (trees.value === undefined || treeStore.selectedTreeId === null) {
+    return
+  }
+
+  if (!nextTrees.some(tree => tree.id === treeStore.selectedTreeId)) {
+    treeStore.deselectTree()
+  }
+})
 </script>
 
 <template>
@@ -69,7 +86,7 @@ const isIconFolderOpen = computed(() => treeStore.hasTree)
           align="start"
         >
           <DropdownMenuItem
-            v-for="tree in treeStore.trees"
+            v-for="tree in treeList"
             :key="tree.id"
             @select="() => { treeStore.selectTree(tree.id); open = false }"
           >

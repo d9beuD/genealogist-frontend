@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { Folder, House, LogOut, User } from '@lucide/vue'
-import { onMounted } from 'vue'
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+import { useTreesQuery } from '@/features/tree/api/trees'
 import { useAuthStore } from '@/stores/auth'
 import { useTreeStore } from '@/stores/tree'
 import {
@@ -26,9 +27,10 @@ import TreeSwitcher from '@/components/layouts/TreeSwitcher.vue'
 const auth = useAuthStore()
 const treeStore = useTreeStore()
 const route = useRoute()
+const { data: trees } = useTreesQuery()
 
-onMounted(() => {
-  treeStore.loadTrees()
+const hasSelectedTree = computed(() => {
+  return trees.value?.some(tree => tree.id === treeStore.selectedTreeId) ?? false
 })
 
 function isActive(path: string): boolean {
@@ -46,7 +48,7 @@ function isActive(path: string): boolean {
       </SidebarHeader>
 
       <SidebarContent>
-        <SidebarGroup v-if="treeStore.hasTree">
+        <SidebarGroup v-if="hasSelectedTree">
           <SidebarGroupLabel>Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>

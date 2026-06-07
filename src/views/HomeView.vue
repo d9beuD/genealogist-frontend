@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { FolderOpen, Plus } from '@lucide/vue'
-import { storeToRefs } from 'pinia'
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useTreesQuery } from '@/features/tree/api/trees'
 import { useTreeStore } from '@/stores/tree'
 
 import { Button } from '@/components/ui/button'
@@ -9,12 +10,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 
 const { t } = useI18n()
 const treeStore = useTreeStore()
-const { trees, isLoading } = storeToRefs(treeStore)
+const { data: trees, isLoading } = useTreesQuery()
+const treeList = computed(() => trees.value ?? [])
 </script>
 
 <template>
   <main class="mx-auto max-w-2xl">
-    <Card v-if="trees.length > 0">
+    <Card v-if="treeList.length > 0">
       <CardHeader>
         <CardTitle>{{ t('features.tree.yourTrees') }}</CardTitle>
         <CardDescription>
@@ -24,10 +26,11 @@ const { trees, isLoading } = storeToRefs(treeStore)
       <CardContent>
         <div class="grid gap-3">
           <Button
-            v-for="tree in trees"
+            v-for="tree in treeList"
             :key="tree.id"
             variant="outline"
             class="justify-start gap-3 text-left"
+            @click="treeStore.selectTree(tree.id)"
           >
             <FolderOpen class="shrink-0" />
             <span>{{ tree.name }}</span>
