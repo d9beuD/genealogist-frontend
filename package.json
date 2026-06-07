@@ -15,7 +15,8 @@
     "lint": "run-s lint:*",
     "lint:oxlint": "oxlint . --fix",
     "lint:eslint": "eslint . --fix --cache",
-    "format": "oxfmt src/"
+    "format": "oxfmt src/",
+    "openapi:generate": "npx openapi-typescript http://localhost:8000/api/docs.jsonopenapi -o ./src/interfaces/api.d.ts"
   },
   "dependencies": {
     "@lucide/vue": "^1.17.0",
