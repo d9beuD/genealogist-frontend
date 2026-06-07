@@ -1,16 +1,14 @@
-import { i18n } from '@/i18n'
+import { i18n, SUPPORTED_LOCALES } from '@/i18n'
+import type { SupportedLocale } from '@/i18n'
 
-type FeatureMessages = Record<'en' | 'fr', Record<string, unknown>>
+export type FeatureMessages = Record<SupportedLocale, Record<string, unknown>>
 
 export function registerFeatureMessages(namespace: string, messages: FeatureMessages) {
-  const nested: Record<string, unknown> = {}
-
-  for (const loc of ['en', 'fr'] as const) {
-    const dict = messages[loc]
-    if (dict) {
-      nested[loc] = dict
-    }
+  for (const locale of SUPPORTED_LOCALES) {
+    i18n.global.mergeLocaleMessage(locale, {
+      features: {
+        [namespace]: messages[locale],
+      },
+    })
   }
-
-  ;(i18n.global as any).setLocaleMessage(`features.${namespace}`, nested)
 }

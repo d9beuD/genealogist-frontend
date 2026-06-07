@@ -1,3 +1,5 @@
+import type { FeatureMessages } from '@/i18n/features'
+
 export const loginMessages = {
   en: {
     title: 'Welcome back',
@@ -33,4 +35,4 @@ export const loginMessages = {
       passwordRequired: 'Le mot de passe est requis',
     },
   },
-}
+} satisfies FeatureMessages

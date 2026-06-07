@@ -1,4 +1,4 @@
-// Feature-specific i18n messages for the registration flow
+import type { FeatureMessages } from '@/i18n/features'
 
 export const registrationMessages = {
   en: {
@@ -61,4 +61,4 @@ export const registrationMessages = {
       passwordsMismatch: 'Les mots de passe ne correspondent pas',
     },
   },
-}
+} satisfies FeatureMessages

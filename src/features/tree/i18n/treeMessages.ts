@@ -1,3 +1,5 @@
+import type { FeatureMessages } from '@/i18n/features'
+
 export const treeMessages = {
   en: {
     noTreeSelected: 'No tree selected',
@@ -25,4 +27,4 @@ export const treeMessages = {
     createTree: 'Créer un arbre',
     loading: 'Chargement...',
   },
-}
+} satisfies FeatureMessages
