@@ -24,6 +24,7 @@ export class AppError extends Error {
   readonly code: AppErrorCode
   readonly fields?: AppErrorFields
   readonly isOperational: boolean
+  readonly cause?: unknown
 
   constructor({
     status,
@@ -33,12 +34,13 @@ export class AppError extends Error {
     isOperational = true,
     cause,
   }: AppErrorOptions) {
-    super(message, { cause })
+    super(message)
     this.name = 'AppError'
     this.status = status
     this.code = code
     this.fields = fields
     this.isOperational = isOperational
+    this.cause = cause
   }
 }
 
