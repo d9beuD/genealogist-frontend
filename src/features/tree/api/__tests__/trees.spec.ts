@@ -12,16 +12,16 @@ describe('tree API', () => {
     vi.mocked(backend).mockReset()
   })
 
-  it('fetches and normalizes trees', async () => {
+  it('fetches trees with usable ids', async () => {
     vi.mocked(backend).mockResolvedValue([
-      { id: 1, name: 'Maternal line' },
-      { id: 2 },
+      { '@id': '/trees/1', id: 1, name: 'Maternal line' },
+      { '@id': '/trees/2', id: 2 },
       { name: 'Missing id' },
     ])
 
     await expect(fetchTrees()).resolves.toEqual([
-      { id: 1, name: 'Maternal line' },
-      { id: 2, name: '' },
+      { '@id': '/trees/1', id: 1, name: 'Maternal line' },
+      { '@id': '/trees/2', id: 2 },
     ])
     expect(backend).toHaveBeenCalledWith('/trees')
   })
