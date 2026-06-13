@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { FolderOpen, Plus } from '@lucide/vue'
+import { Plus } from '@lucide/vue'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useTreesQuery } from '@/features/tree/api/trees'
@@ -13,10 +13,10 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import TreeActionsMenu from '@/features/tree/components/TreeActionsMenu.vue'
 import CreateTreeDialog from '@/features/tree/components/CreateTreeDialog.vue'
+import TreeList from '@/features/tree/components/TreeList.vue'
 
-const { t, d } = useI18n()
+const { t } = useI18n()
 const treeStore = useTreeStore()
 const { data: trees, isLoading } = useTreesQuery()
 const treeList = computed(() => trees.value ?? [])
@@ -37,27 +37,7 @@ const treeList = computed(() => trees.value ?? [])
         </CreateTreeDialog>
       </div>
 
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <Card
-          v-for="tree in treeList"
-          :key="tree.id"
-          class="cursor-pointer transition hover:border-primary"
-          @click="treeStore.selectTree(tree.id)"
-        >
-          <CardHeader>
-            <CardTitle class="flex items-center gap-2">
-              <FolderOpen class="shrink-0" />
-              <span class="truncate">{{ tree.name }}</span>
-            </CardTitle>
-            <div data-slot="card-action" @click.stop>
-              <TreeActionsMenu :tree="tree" />
-            </div>
-            <CardDescription v-if="tree.createdAt">
-              {{ t('features.tree.createdOn', { date: d(new Date(tree.createdAt), 'medium') }) }}
-            </CardDescription>
-          </CardHeader>
-        </Card>
-      </div>
+      <TreeList :trees="treeList" @select="treeStore.selectTree" />
     </template>
 
     <div v-else-if="!isLoading" class="w-full">
