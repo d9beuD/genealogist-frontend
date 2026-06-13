@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Folder, House, LogOut, User } from '@lucide/vue'
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import { useTreesQuery } from '@/features/tree/api/trees'
 import { useAuthStore } from '@/stores/auth'
@@ -27,6 +28,7 @@ import TreeSwitcher from '@/components/layouts/TreeSwitcher.vue'
 const auth = useAuthStore()
 const treeStore = useTreeStore()
 const route = useRoute()
+const { t } = useI18n()
 const { data: trees } = useTreesQuery()
 
 const hasSelectedTree = computed(() => {
@@ -38,6 +40,10 @@ function isActive(path: string): boolean {
     ? route.name === 'home'
     : route.path.startsWith(path)
 }
+
+function goHome() {
+  treeStore.deselectTree()
+}
 </script>
 
 <template>
@@ -48,23 +54,31 @@ function isActive(path: string): boolean {
       </SidebarHeader>
 
       <SidebarContent>
-        <SidebarGroup v-if="hasSelectedTree">
-          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+        <SidebarGroup>
+          <SidebarGroupLabel>{{ t('navigation.group') }}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton as-child :data-active="isActive('/')">
-                  <router-link to="/">
-                    <House />
-                    <span>Home</span>
-                  </router-link>
-                </SidebarMenuButton>
+                <router-link v-slot="{ href, navigate }" custom to="/">
+                  <SidebarMenuButton
+                    as-child
+                    :data-active="isActive('/')"
+                  >
+                    <a
+                      :href="href"
+                      @click="(event) => { goHome(); navigate(event) }"
+                    >
+                      <House />
+                      <span>{{ t('navigation.home') }}</span>
+                    </a>
+                  </SidebarMenuButton>
+                </router-link>
               </SidebarMenuItem>
-              <SidebarMenuItem>
+              <SidebarMenuItem v-if="hasSelectedTree">
                 <SidebarMenuButton as-child :data-active="isActive('/trees')">
                   <router-link to="/trees">
                     <Folder />
-                    <span>Trees</span>
+                    <span>{{ t('navigation.members') }}</span>
                   </router-link>
                 </SidebarMenuButton>
               </SidebarMenuItem>

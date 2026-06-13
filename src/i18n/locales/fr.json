@@ -6,6 +6,11 @@
     "login": "Se connecter",
     "register": "Créer un compte"
   },
+  "navigation": {
+    "group": "Navigation",
+    "home": "Accueil",
+    "members": "Membres"
+  },
   "login": {
     "title": "Bienvenue",
     "subtitle": "Connectez-vous pour accéder à votre arbre généalogique"

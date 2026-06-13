@@ -6,6 +6,11 @@
     "login": "Sign in",
     "register": "Create account"
   },
+  "navigation": {
+    "group": "Navigation",
+    "home": "Home",
+    "members": "Members"
+  },
   "login": {
     "title": "Welcome back",
     "subtitle": "Sign in to access your family tree"
