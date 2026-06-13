@@ -66,7 +66,7 @@ async function openTree() {
   try {
     isOpening.value = true
     const tree = await fetchTree(props.tree.id)
-    treeStore.selectTree(tree.id)
+    treeStore.selectTree(tree.id, tree.name)
     toast.success(t('features.tree.openSuccess', { name: tree.name }))
   } catch (error) {
     const appError = error instanceof AppError ? error : new AppError({

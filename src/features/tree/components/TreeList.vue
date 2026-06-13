@@ -7,7 +7,7 @@ defineProps<{
 }>()
 
 const emit = defineEmits<{
-  select: [treeId: number]
+  select: [tree: CreatedTree]
 }>()
 </script>
 
@@ -17,7 +17,7 @@ const emit = defineEmits<{
       v-for="tree in trees"
       :key="tree.id"
       :tree="tree"
-      @click="emit('select', tree.id)"
+      @click="emit('select', tree)"
     />
   </div>
 </template>

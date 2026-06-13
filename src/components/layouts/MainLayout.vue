@@ -32,7 +32,15 @@ const { t } = useI18n()
 const { data: trees } = useTreesQuery()
 
 const hasSelectedTree = computed(() => {
-  return trees.value?.some(tree => tree.id === treeStore.selectedTreeId) ?? false
+  if (treeStore.selectedTreeId === null) {
+    return false
+  }
+
+  if (trees.value === undefined) {
+    return true
+  }
+
+  return trees.value.some(tree => tree.id === treeStore.selectedTreeId)
 })
 
 function isActive(path: string): boolean {

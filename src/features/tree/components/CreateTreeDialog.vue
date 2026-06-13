@@ -75,7 +75,7 @@ const onSubmit: SubmissionHandler = async (values, actions) => {
     const created = await mutateAsync({ name })
     toast.success(t('features.tree.createDialog.success'))
     if (typeof created.id === 'number') {
-      treeStore.selectTree(created.id)
+      treeStore.selectTree(created.id, created.name)
     }
     actions.resetForm()
     open.value = false

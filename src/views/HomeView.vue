@@ -37,7 +37,7 @@ const treeList = computed(() => trees.value ?? [])
         </CreateTreeDialog>
       </div>
 
-      <TreeList :trees="treeList" @select="treeStore.selectTree" />
+      <TreeList :trees="treeList" @select="(tree) => treeStore.selectTree(tree.id, tree.name)" />
     </template>
 
     <div v-else-if="!isLoading" class="w-full">

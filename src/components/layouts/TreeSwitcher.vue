@@ -32,7 +32,9 @@ const selectedTree = computed(() => {
 })
 
 const selectedTreeName = computed(() => {
-  return selectedTree.value?.name ?? t('features.tree.noTreeSelected')
+  return selectedTree.value?.name
+    ?? treeStore.selectedTreeName
+    ?? t('features.tree.noTreeSelected')
 })
 
 const treeCount = computed(() => treeList.value.length)
@@ -43,7 +45,7 @@ const treeLabel = computed(() => {
   return t(`features.tree.${key}`, { count: treeCount.value })
 })
 
-const isIconFolderOpen = computed(() => selectedTree.value !== null)
+const isIconFolderOpen = computed(() => treeStore.selectedTreeId !== null)
 
 watch(treeList, (nextTrees) => {
   if (trees.value === undefined || treeStore.selectedTreeId === null) {
@@ -92,7 +94,7 @@ watch(treeList, (nextTrees) => {
           <DropdownMenuItem
             v-for="tree in treeList"
             :key="tree.id"
-            @select="() => { treeStore.selectTree(tree.id); open = false }"
+            @select="() => { treeStore.selectTree(tree.id, tree.name); open = false }"
           >
             {{ tree.name }}
             <Check v-if="tree.id === treeStore.selectedTreeId" class="ml-auto" />
