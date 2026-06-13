@@ -86,7 +86,7 @@ watch(treeList, (nextTrees) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent
           v-if="treeCount"
-          class="w-(--reka-dropdown-menu-trigger-width) bg-sidebar text-sidebar-foreground border-sidebar-border"
+          class="w-(--reka-dropdown-menu-trigger-width)"
           align="start"
         >
           <DropdownMenuItem

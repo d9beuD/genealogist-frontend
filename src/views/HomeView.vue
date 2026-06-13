@@ -13,6 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import TreeActionsMenu from '@/features/tree/components/TreeActionsMenu.vue'
 import CreateTreeDialog from '@/features/tree/components/CreateTreeDialog.vue'
 
 const { t, d } = useI18n()
@@ -48,6 +49,9 @@ const treeList = computed(() => trees.value ?? [])
               <FolderOpen class="shrink-0" />
               <span class="truncate">{{ tree.name }}</span>
             </CardTitle>
+            <div data-slot="card-action" @click.stop>
+              <TreeActionsMenu :tree="tree" />
+            </div>
             <CardDescription v-if="tree.createdAt">
               {{ t('features.tree.createdOn', { date: d(new Date(tree.createdAt), 'medium') }) }}
             </CardDescription>
