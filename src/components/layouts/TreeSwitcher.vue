@@ -3,6 +3,7 @@ import { Check, ChevronsUpDown, Folder, FolderOpen, Plus } from '@lucide/vue'
 import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useTreesQuery } from '@/features/tree/api/trees'
+import CreateTreeDialog from '@/features/tree/components/CreateTreeDialog.vue'
 import { useTreeStore } from '@/stores/tree'
 
 import {
@@ -23,6 +24,7 @@ const treeStore = useTreeStore()
 const { data: trees } = useTreesQuery()
 
 const open = ref(false)
+const createTreeDialogOpen = ref(false)
 
 const treeList = computed(() => trees.value ?? [])
 const selectedTree = computed(() => {
@@ -55,6 +57,8 @@ watch(treeList, (nextTrees) => {
 </script>
 
 <template>
+  <CreateTreeDialog v-model:open="createTreeDialogOpen" />
+
   <SidebarMenu>
     <SidebarMenuItem>
       <DropdownMenu v-model:open="open">
@@ -82,7 +86,7 @@ watch(treeList, (nextTrees) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent
           v-if="treeCount"
-          class="w-(--reka-dropdown-menu-trigger-width)"
+          class="w-(--reka-dropdown-menu-trigger-width) bg-sidebar text-sidebar-foreground border-sidebar-border"
           align="start"
         >
           <DropdownMenuItem
@@ -94,7 +98,9 @@ watch(treeList, (nextTrees) => {
             <Check v-if="tree.id === treeStore.selectedTreeId" class="ml-auto" />
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem @select="() => { open = false }">
+          <DropdownMenuItem
+            @select.prevent="() => { open = false; createTreeDialogOpen = true }"
+          >
             <Plus class="mr-2" />
             {{ t('features.tree.createNewTree') }}
           </DropdownMenuItem>

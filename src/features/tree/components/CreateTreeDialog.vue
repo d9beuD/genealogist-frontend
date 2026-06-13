@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, useSlots } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { SubmissionHandler } from 'vee-validate'
 import { toast } from 'vue-sonner'
@@ -33,10 +33,30 @@ import {
 import { AppError } from '@/lib/errors'
 import { useTreeStore } from '@/stores/tree'
 
-const open = ref(false)
+const props = defineProps<{
+  open?: boolean
+}>()
+
+const emit = defineEmits<{
+  'update:open': [value: boolean]
+}>()
+
+const slots = useSlots()
+const internalOpen = ref(false)
 const { t, tm, rt } = useI18n()
 const treeStore = useTreeStore()
 const { mutateAsync, isPending } = useCreateTreeMutation()
+
+const open = computed({
+  get: () => props.open ?? internalOpen.value,
+  set: (value: boolean) => {
+    if (props.open === undefined) {
+      internalOpen.value = value
+    }
+
+    emit('update:open', value)
+  },
+})
 
 const validationMessages = computed(() => {
   const raw = tm('features.tree.createDialog.validation') as Record<string, unknown>
@@ -81,7 +101,7 @@ const onSubmit: SubmissionHandler = async (values, actions) => {
 
 <template>
   <Dialog v-model:open="open">
-    <DialogTrigger as-child>
+    <DialogTrigger v-if="slots.trigger" as-child>
       <slot name="trigger" :open="() => (open = true)" />
     </DialogTrigger>
     <DialogContent>
