@@ -101,8 +101,8 @@ watch(treeList, (nextTrees) => {
           <DropdownMenuItem
             @select.prevent="() => { open = false; createTreeDialogOpen = true }"
           >
-            <Plus class="mr-2" />
-            {{ t('features.tree.createNewTree') }}
+            <Plus />
+            {{ t('features.tree.createTree') }}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
