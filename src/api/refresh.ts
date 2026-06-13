@@ -5,6 +5,7 @@ import { useAuthStore } from '@/stores/auth'
 import { pinia } from '@/stores'
 import { env } from '@/env'
 import { toAppError } from '@/lib/errors'
+import { appendCsrfHeader } from './csrf'
 
 const baseURL = env.VITE_BACKEND_BASE_URL
 
@@ -21,10 +22,10 @@ export function refreshAccessToken(): Promise<void> {
         baseURL,
         method: 'POST',
         credentials: 'include',
-        headers: {
+        headers: appendCsrfHeader({
           'Content-Type': 'application/ld+json',
           Accept: 'application/ld+json',
-        },
+        }, 'POST', '/token/refresh'),
       })
     } catch (refreshError) {
       if (toAppError(refreshError).status === 401) {

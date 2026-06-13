@@ -114,6 +114,10 @@ function codeForStatus(status: number | null): AppErrorCode {
     return 'NETWORK'
   }
 
+  if (status === 400 || status === 422) {
+    return 'VALIDATION'
+  }
+
   if (status === 403) {
     return 'FORBIDDEN'
   }
@@ -132,6 +136,10 @@ function codeForStatus(status: number | null): AppErrorCode {
 function messageForStatus(status: number | null, fallback?: string): string {
   if (status === null) {
     return translateError('network')
+  }
+
+  if (status === 400 || status === 422) {
+    return translateError('validation')
   }
 
   if (status === 403) {

@@ -56,24 +56,26 @@ const treeList = computed(() => trees.value ?? [])
       </div>
     </template>
 
-    <Card v-else-if="!isLoading" class="mx-auto max-w-2xl">
-      <CardHeader class="text-center">
-        <CardTitle>{{ t('features.tree.noTreesYet') }}</CardTitle>
-        <CardDescription>
-          {{ t('features.tree.createFirstTreeDescription') }}
-        </CardDescription>
-      </CardHeader>
-      <CardContent class="flex justify-center">
-        <CreateTreeDialog>
-          <template #trigger>
-            <Button>
-              <Plus />
-              {{ t('features.tree.createTree') }}
-            </Button>
-          </template>
-        </CreateTreeDialog>
-      </CardContent>
-    </Card>
+    <div v-else-if="!isLoading" class="w-full">
+      <Card class="mx-auto max-w-2xl">
+        <CardHeader class="text-center">
+          <CardTitle>{{ t('features.tree.noTreesYet') }}</CardTitle>
+          <CardDescription>
+            {{ t('features.tree.createFirstTreeDescription') }}
+          </CardDescription>
+        </CardHeader>
+        <CardContent class="flex justify-center">
+          <CreateTreeDialog>
+            <template #trigger>
+              <Button>
+                <Plus />
+                {{ t('features.tree.createTree') }}
+              </Button>
+            </template>
+          </CreateTreeDialog>
+        </CardContent>
+      </Card>
+    </div>
 
     <div v-else class="flex items-center justify-center p-8">
       <p class="text-sm text-muted-foreground">{{ t('features.tree.loading') }}</p>

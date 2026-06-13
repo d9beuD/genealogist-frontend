@@ -1,6 +1,7 @@
 import { ofetch, type FetchOptions } from 'ofetch'
 import { AppError, toAppError } from '@/lib/errors'
 import { env } from '@/env'
+import { appendCsrfHeader } from './csrf'
 import { refreshAccessToken } from './refresh'
 
 const baseURL = env.VITE_BACKEND_BASE_URL
@@ -11,6 +12,9 @@ const rawBackend = ofetch.create({
   headers: {
     'Content-Type': 'application/ld+json',
     Accept: 'application/ld+json',
+  },
+  onRequest({ request, options }) {
+    options.headers = appendCsrfHeader(options.headers, options.method, String(request))
   },
   onRequestError({ error }) {
     throw toAppError(error)
