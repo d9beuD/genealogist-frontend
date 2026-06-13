@@ -234,7 +234,7 @@ async function handleOpenAction() {
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent
-      align="end"
+      align="start"
       class="w-44"
       @click.stop
     >
