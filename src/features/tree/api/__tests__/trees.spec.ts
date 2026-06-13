@@ -13,15 +13,52 @@ describe('tree API', () => {
   })
 
   it('fetches trees with usable ids', async () => {
-    vi.mocked(backend).mockResolvedValue([
-      { '@id': '/trees/1', id: 1, name: 'Maternal line' },
-      { '@id': '/trees/2', id: 2 },
-      { name: 'Missing id' },
-    ])
+    vi.mocked(backend).mockResolvedValue({
+      totalItems: 3,
+      member: [
+        {
+          '@context': '/api/contexts/TreeCollection',
+          '@id': '/api/trees/1',
+          '@type': 'TreeCollection',
+          id: 1,
+          name: 'Maternal line',
+          createdAt: '2026-06-13T20:19:48.254Z',
+        },
+        {
+          '@context': '/api/contexts/TreeCollection',
+          '@id': '/api/trees/2',
+          '@type': 'TreeCollection',
+          id: 2,
+          name: 'Paternal line',
+          createdAt: '2026-06-13T20:20:48.254Z',
+        },
+        {
+          '@context': '/api/contexts/TreeCollection',
+          '@id': '/api/trees/missing-id',
+          '@type': 'TreeCollection',
+          name: 'Missing id',
+          createdAt: '2026-06-13T20:21:48.254Z',
+        },
+      ],
+    })
 
     await expect(fetchTrees()).resolves.toEqual([
-      { '@id': '/trees/1', id: 1, name: 'Maternal line' },
-      { '@id': '/trees/2', id: 2 },
+      {
+        '@context': '/api/contexts/TreeCollection',
+        '@id': '/api/trees/1',
+        '@type': 'TreeCollection',
+        id: 1,
+        name: 'Maternal line',
+        createdAt: '2026-06-13T20:19:48.254Z',
+      },
+      {
+        '@context': '/api/contexts/TreeCollection',
+        '@id': '/api/trees/2',
+        '@type': 'TreeCollection',
+        id: 2,
+        name: 'Paternal line',
+        createdAt: '2026-06-13T20:20:48.254Z',
+      },
     ])
     expect(backend).toHaveBeenCalledWith('/trees')
   })

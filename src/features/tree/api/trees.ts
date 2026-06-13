@@ -1,20 +1,20 @@
 import { useQuery } from '@tanstack/vue-query'
 
-import type { TreeCollection } from '@/interfaces/treecollection'
 import { backend } from '@/api'
+import type { CreatedTree, TreeCollectionResponse } from '@/features/tree/api/types'
 
 export const treesQueryKey = ['trees'] as const
 
-export type TreeCollectionWithId = TreeCollection & { id: number }
+export type TreeCollectionWithId = CreatedTree
 
-function hasTreeId(tree: TreeCollection): tree is TreeCollectionWithId {
+function hasTreeId(tree: Partial<CreatedTree>): tree is TreeCollectionWithId {
   return typeof tree.id === 'number'
 }
 
 export async function fetchTrees(): Promise<TreeCollectionWithId[]> {
-  const apiTrees = await backend<TreeCollection[]>('/trees')
+  const response = await backend<TreeCollectionResponse>('/trees')
 
-  return apiTrees.filter(hasTreeId)
+  return response.member.filter(hasTreeId)
 }
 
 export function useTreesQuery() {
