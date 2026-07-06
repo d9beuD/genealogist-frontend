@@ -26,4 +26,9 @@ export default defineNuxtConfig({
      */
     componentDir: "@/components/ui",
   },
+  runtimeConfig: {
+    public: {
+      symfonyBaseUrl: "http://localhost:8000",
+    },
+  },
 });
