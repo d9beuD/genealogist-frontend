@@ -50,7 +50,10 @@ export const useAuth = () => {
       if (statusCode === 401 || statusCode === 403) {
         state.value.user = null;
       } else {
-        state.value.error = getErrorMessage(error, "Authentication check failed");
+        state.value.error = getErrorMessage(
+          error,
+          "Authentication check failed",
+        );
       }
     } finally {
       state.value.loading = false;
