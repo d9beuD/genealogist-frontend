@@ -1,78 +1,50 @@
-# Family Tree Frontend
+# Nuxt Minimal Starter
 
-This repository contains the frontend application for a family-tree app. It provides the user interface for exploring and managing genealogy data.
+Look at the
+[Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to
+learn more.
 
-## Package Manager
+## Setup
 
-This project uses `pnpm` instead of `npm`. Use `pnpm` for installing dependencies and running scripts.
+Make sure to install dependencies:
 
-```sh
-pnpm install
+```bash
+deno install
 ```
 
-## Development
+## Environment
 
-Start the frontend development server:
+Set the backend API URL with `NUXT_API_BASE_URL`.
 
-```sh
-pnpm dev
+```bash
+NUXT_API_BASE_URL=http://localhost:8000
 ```
 
-## Build
+Use the same variable in dev and production. `runtimeConfig.public.apiBaseUrl`
+reads from it.
 
-Type-check and build the production bundle:
+## Development Server
 
-```sh
-pnpm build
+Start the development server on `http://localhost:3000`:
+
+```bash
+deno task dev
 ```
 
-Preview the production build locally:
+## Production
 
-```sh
-pnpm preview
+Build the application for production:
+
+```bash
+deno task build
 ```
 
-## Tests
+Locally preview production build:
 
-Run unit tests:
-
-```sh
-pnpm test:unit
+```bash
+deno task preview
 ```
 
-Run end-to-end tests:
-
-```sh
-pnpm test:e2e
-```
-
-Install Playwright browsers before running end-to-end tests for the first time:
-
-```sh
-pnpm exec playwright install
-```
-
-## Code Quality
-
-Run linters:
-
-```sh
-pnpm lint
-```
-
-Format source files:
-
-```sh
-pnpm format
-```
-
-## Tech Stack
-
-- Vue 3
-- Vite
-- TypeScript
-- Pinia
-- Vue Router
-- Tailwind CSS
-- Vitest
-- Playwright
+Check out the
+[deployment documentation](https://nuxt.com/docs/getting-started/deployment) for
+more information.
