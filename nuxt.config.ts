@@ -11,7 +11,13 @@ export default defineNuxtConfig({
       tailwindcss(),
     ],
   },
-  modules: ["@nuxtjs/tailwindcss"],
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "@nuxt/a11y",
+    "@nuxt/hints",
+    "@nuxt/image",
+    "@nuxt/test-utils",
+  ],
   shadcn: {
     /**
      * Prefix for all the imported component.
