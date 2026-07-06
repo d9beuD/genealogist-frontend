@@ -4,6 +4,7 @@
     "npm:@lucide/vue@^1.23.0": "1.23.0_vue@3.5.39",
     "npm:@nuxtjs/tailwindcss@7.0.0-beta.1": "7.0.0-beta.1_@types+node@26.1.0_vite@7.3.6__@types+node@26.1.0__jiti@2.7.0",
     "npm:@tailwindcss/vite@^4.3.2": "4.3.2_vite@7.3.6__@types+node@26.1.0__jiti@2.7.0_@types+node@26.1.0",
+    "npm:@tanstack/vue-query@^5.101.2": "5.101.2_vue@3.5.39",
     "npm:@tanstack/vue-table@^8.21.3": "8.21.3_vue@3.5.39",
     "npm:@types/node@^26.1.0": "26.1.0",
     "npm:@vee-validate/zod@^4.15.1": "4.15.1_zod@3.25.76_vue@3.5.39",
@@ -1717,11 +1718,30 @@
         "vite"
       ]
     },
+    "@tanstack/match-sorter-utils@8.19.4": {
+      "integrity": "sha512-Wo1iKt2b9OT7d+YGhvEPD3DXvPv2etTusIMhMUoG7fbhmxcXCtIjJDEygy91Y2JFlwGyjqiBPRozme7UD8hoqg==",
+      "dependencies": [
+        "remove-accents"
+      ]
+    },
+    "@tanstack/query-core@5.101.2": {
+      "integrity": "sha512-hH5MLoJhF7KaIGd7q3xTXGXvslI+GYlM1Z/35aSHHWaCJWB7XvTSHYuV3eM7tw+aE0mT/xMro4M4Q9rCGHT0lw=="
+    },
     "@tanstack/table-core@8.21.3": {
       "integrity": "sha512-ldZXEhOBb8Is7xLs01fR3YEc3DERiz5silj8tnGkFZytt1abEvl/GhUmCE0PMLaMPTa3Jk4HbKmRlHmu+gCftg=="
     },
     "@tanstack/virtual-core@3.17.3": {
       "integrity": "sha512-8Np/TFELpI0ySuJoVmjvOrQYXH/8sTX0Biv9szhFhY39xOdAAY+smrMxjxOum/ux3eM8MUJQsEJ0/R0UpvC8dw=="
+    },
+    "@tanstack/vue-query@5.101.2_vue@3.5.39": {
+      "integrity": "sha512-nFXKNK4dI/PnKNejyIkQmmobBsJWWXTPcpjPvkgFLkpFPz9DcmqIiKIAF2Pa7MZCipH62/+bt2sxEIA0wNEeOg==",
+      "dependencies": [
+        "@tanstack/match-sorter-utils",
+        "@tanstack/query-core",
+        "@vue/devtools-api@6.6.4",
+        "vue",
+        "vue-demi"
+      ]
     },
     "@tanstack/vue-table@8.21.3_vue@3.5.39": {
       "integrity": "sha512-rusRyd77c5tDPloPskctMyPLFEQUeBzxdQ+2Eow4F7gDPlPOB1UnnhzfpdvqZ8ZyX2rRNGmqNnQWm87OI2OQPw==",
@@ -1902,6 +1922,9 @@
         "@vue/shared"
       ]
     },
+    "@vue/devtools-api@6.6.4": {
+      "integrity": "sha512-sGhTPMuXqZ1rVOk32RylztWkfXTRhuS7vgAKv0zjqk8gbsHkJ7xfFf+jbySxt7tWObEJwyKaHMikV/WGDiQm8g=="
+    },
     "@vue/devtools-api@7.7.10": {
       "integrity": "sha512-KxtEpUOOpFz/qOGRrAwA36QF7DqIA+FXgCYit9mk9wjbaZt0sXOFz81ElOZtKA4HbWHUdwNjZHBFsFFyp5BZiA==",
       "dependencies": [
@@ -1985,12 +2008,12 @@
     "@vue/shared@3.5.39": {
       "integrity": "sha512-l1rrBtBfTnmxvtsvdQDXltUUy8S1Y+ZaqdfUzmAnJkTd8Z8rv5v/ytW+TKiqEOWyHPoqtPlNFSs0lhRmYVSHVA=="
     },
-    "@vueuse/core@10.11.1": {
+    "@vueuse/core@10.11.1_vue@3.5.39": {
       "integrity": "sha512-guoy26JQktXPcz+0n3GukWIy/JDNKti9v6VEMu6kV2sYBsWuGiTU8OWdg+ADfUbHg3/3DlqySDe7JmdHrktiww==",
       "dependencies": [
         "@types/web-bluetooth@0.0.20",
         "@vueuse/metadata@10.11.1",
-        "@vueuse/shared@10.11.1",
+        "@vueuse/shared@10.11.1_vue@3.5.39",
         "vue-demi"
       ]
     },
@@ -2021,7 +2044,7 @@
     "@vueuse/metadata@14.3.0": {
       "integrity": "sha512-BwxmbAzwAVF50+MW57GXOUEV61nFBGnlBvrTqj49PqWJu3uw7hdu72ztXeZ33RdZtDY6kO+bfCAE1PCn88Tktw=="
     },
-    "@vueuse/shared@10.11.1": {
+    "@vueuse/shared@10.11.1_vue@3.5.39": {
       "integrity": "sha512-LHpC8711VFZlDaYUXEBbFBCQ7GS3dVU9mjOhhMhXP6txTV4EhYQg/KGnQuvt/sPAtoUKq7VVUnL6mVtFoL42sA==",
       "dependencies": [
         "vue-demi"
@@ -4114,6 +4137,9 @@
         "vue"
       ]
     },
+    "remove-accents@0.5.0": {
+      "integrity": "sha512-8g3/Otx1eJaVD12e31UbJj1YzdtVvzH85HV7t+9MJYk/u3XmkOUJ5Ys9wQrf9PCPK8+xn4ymzqYCiZl6QWKn+A=="
+    },
     "resolve-from@5.0.0": {
       "integrity": "sha512-qYg9KP24dD5qka9J47d0aVky0N+b4fTU89LN9iDnjB5waksiC49rvMB0PrUJQGoTmH50XPiqOvAjDfaijGxYZw=="
     },
@@ -4713,7 +4739,7 @@
     "vaul-vue@0.4.1_reka-ui@2.10.1__vue@3.5.39_vue@3.5.39": {
       "integrity": "sha512-A6jOWOZX5yvyo1qMn7IveoWN91mJI5L3BUKsIwkg6qrTGgHs1Sb1JF/vyLJgnbN1rH4OOOxFbtqL9A46bOyGUQ==",
       "dependencies": [
-        "@vueuse/core@10.11.1",
+        "@vueuse/core@10.11.1_vue@3.5.39",
         "reka-ui",
         "vue"
       ]
@@ -5008,6 +5034,7 @@
         "npm:@lucide/vue@^1.23.0",
         "npm:@nuxtjs/tailwindcss@7.0.0-beta.1",
         "npm:@tailwindcss/vite@^4.3.2",
+        "npm:@tanstack/vue-query@^5.101.2",
         "npm:@tanstack/vue-table@^8.21.3",
         "npm:@types/node@^26.1.0",
         "npm:@vee-validate/zod@^4.15.1",
