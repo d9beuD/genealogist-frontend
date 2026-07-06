@@ -5,7 +5,7 @@
   "typescript": true,
   "tailwind": {
     "config": "",
-    "css": "./src/style.css",
+    "css": "app/assets/css/tailwind.css",
     "baseColor": "taupe",
     "cssVariables": true,
     "prefix": ""

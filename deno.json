@@ -1,0 +1,20 @@
+{
+  "allowScripts": ["npm:@parcel/watcher@2.5.6", "npm:esbuild@0.28.1", "npm:fsevents@2.3.3", "npm:vue-demi@0.14.10"],
+  "imports": {
+    "~": "./app/",
+    "@": "./app/",
+    "~~": "./",
+    "@@": "./",
+    "#shared": "./shared/",
+    "#server": "./server/",
+    "assets": "./app/assets/",
+    "public": "./public/",
+    "#build": "./.nuxt/",
+    "#internal/nuxt/paths": "./.nuxt/paths.mjs",
+    "#imports": "./.nuxt/imports.d.ts",
+    "#app": "./.nuxt/imports.d.ts"
+  },
+  "lint": {
+    "exclude": ["app/components/ui/"]
+  }
+}
