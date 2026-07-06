@@ -20,7 +20,7 @@ jobs:
       - name: Set up Deno
         uses: denoland/setup-deno@v2
         with:
-          deno-version-file: deno.json
+          deno-version: 2.x
           cache: true
 
       - name: Cache Deno modules
