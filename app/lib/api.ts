@@ -2,7 +2,7 @@
  * Make an authenticated API call through the proxy
  * Automatically includes cookies for authentication
  */
-export async function apiFetch<T>(
+export function apiFetch<T>(
   path: string,
   options: {
     method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
@@ -12,13 +12,13 @@ export async function apiFetch<T>(
 ): Promise<T> {
   return $fetch<T>(`/api${path}`, {
     ...options,
-  });
+  }) as Promise<T>;
 }
 
 /**
  * Make a public API call (no auth required)
  */
-export async function publicApiFetch<T>(
+export function publicApiFetch<T>(
   path: string,
   options: {
     method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";

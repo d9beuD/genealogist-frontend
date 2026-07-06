@@ -10,6 +10,21 @@ interface AuthState {
   error: string | null;
 }
 
+function getErrorMessage(error: unknown, fallback: string): string {
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  if (typeof error === "object" && error !== null && "message" in error) {
+    const message = (error as { message?: unknown }).message;
+    if (typeof message === "string") {
+      return message;
+    }
+  }
+
+  return fallback;
+}
+
 export const useAuth = () => {
   const state = useState<AuthState>("auth", () => ({
     user: null,
@@ -24,11 +39,16 @@ export const useAuth = () => {
     try {
       const user = await $fetch<User>("/api/auth/me");
       state.value.user = user;
-    } catch (error: any) {
-      if (error.statusCode === 401 || error.statusCode === 403) {
+    } catch (error: unknown) {
+      const statusCode =
+        typeof error === "object" && error !== null && "statusCode" in error
+          ? Number((error as { statusCode?: unknown }).statusCode)
+          : undefined;
+
+      if (statusCode === 401 || statusCode === 403) {
         state.value.user = null;
       } else {
-        state.value.error = error.message || "Authentication check failed";
+        state.value.error = getErrorMessage(error, "Authentication check failed");
       }
     } finally {
       state.value.loading = false;
@@ -48,8 +68,8 @@ export const useAuth = () => {
       await checkAuth();
 
       return result;
-    } catch (error: any) {
-      state.value.error = error.message || "Login failed";
+    } catch (error: unknown) {
+      state.value.error = getErrorMessage(error, "Login failed");
       throw error;
     } finally {
       state.value.loading = false;
@@ -65,8 +85,8 @@ export const useAuth = () => {
       });
 
       state.value.user = null;
-    } catch (error: any) {
-      state.value.error = error.message || "Logout failed";
+    } catch (error: unknown) {
+      state.value.error = getErrorMessage(error, "Logout failed");
     } finally {
       state.value.loading = false;
     }

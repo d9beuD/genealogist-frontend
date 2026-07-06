@@ -1,4 +1,17 @@
-export default defineEventHandler(async (event: any) => {
+import type { H3Event } from "#imports";
+
+const hopByHopHeaders = new Set([
+  "connection",
+  "keep-alive",
+  "proxy-authenticate",
+  "proxy-authorization",
+  "te",
+  "trailer",
+  "transfer-encoding",
+  "upgrade",
+]);
+
+export default defineEventHandler(async (event: H3Event) => {
   const config = useRuntimeConfig();
   const symfonyBaseUrl = config.public.symfonyBaseUrl;
 
@@ -36,7 +49,7 @@ export default defineEventHandler(async (event: any) => {
     }
   }
 
-  let body: any = undefined;
+  let body: string | Record<string, unknown> | null | undefined = undefined;
   const method = event.method;
 
   if (["POST", "PUT", "PATCH", "DELETE"].includes(method)) {
@@ -49,41 +62,50 @@ export default defineEventHandler(async (event: any) => {
       headers,
       body,
       query,
-      responseType: "json",
       redirect: "manual",
     });
 
-    const responseHeaders = Object.fromEntries(response.headers.entries());
+    const setCookieHeader = response.headers.get("set-cookie");
+    if (setCookieHeader) {
+      const cookies = splitCookiesString(setCookieHeader).map((cookie: string) =>
+        cookie.replace(/;\s*Domain=[^;]+/gi, "")
+      );
 
-    const setCookieHeaders = responseHeaders["set-cookie"];
-    if (setCookieHeaders) {
-      const cookies = Array.isArray(setCookieHeaders)
-        ? setCookieHeaders
-        : [setCookieHeaders];
-
-      const processedCookies = cookies.map((cookie) => {
-        return cookie.replace(/;\s*Domain=[^;]+/gi, "");
-      });
-
-      responseHeaders["set-cookie"] = processedCookies as unknown as string;
+      for (const cookie of cookies) {
+        appendResponseHeader(event, "set-cookie", cookie);
+      }
     }
 
-    setResponseHeaders(event, responseHeaders);
+    for (const [key, value] of response.headers.entries()) {
+      const header = key.toLowerCase();
+
+      if (header === "set-cookie" || hopByHopHeaders.has(header)) {
+        continue;
+      }
+
+      appendResponseHeader(event, key, value);
+    }
+
+    setResponseStatus(event, response.status, response.statusText);
 
     return response._data;
-  } catch (error: any) {
-    if (error.statusCode) {
+  } catch (error: unknown) {
+    if (typeof error === "object" && error !== null && "statusCode" in error) {
+      const err = error as { statusCode?: number; statusMessage?: string; data?: unknown };
+
       throw createError({
-        statusCode: error.statusCode,
-        statusMessage: error.statusMessage || "Symfony API Error",
-        data: error.data,
+        statusCode: err.statusCode || 500,
+        statusMessage: err.statusMessage || "Symfony API Error",
+        data: err.data,
       });
     }
+
+    const message = error instanceof Error ? error.message : "Unknown error";
 
     throw createError({
       statusCode: 502,
       statusMessage: "Bad Gateway - Symfony API unreachable",
-      data: { message: error.message },
+      data: { message },
     });
   }
 });

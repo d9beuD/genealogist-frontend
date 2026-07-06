@@ -1,4 +1,21 @@
-export default defineEventHandler(async (event: any) => {
+import type { H3Event } from "#imports";
+
+function getErrorMessage(error: unknown, fallback: string): string {
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  if (typeof error === "object" && error !== null && "message" in error) {
+    const message = (error as { message?: unknown }).message;
+    if (typeof message === "string") {
+      return message;
+    }
+  }
+
+  return fallback;
+}
+
+export default defineEventHandler(async (event: H3Event) => {
   const config = useRuntimeConfig();
   const symfonyBaseUrl = config.public.symfonyBaseUrl;
 
@@ -37,15 +54,20 @@ export default defineEventHandler(async (event: any) => {
         data: { message: "Invalid or expired token" },
       });
     }
-  } catch (error: any) {
-    if (error.statusCode === 401) {
+  } catch (error: unknown) {
+    const statusCode =
+      typeof error === "object" && error !== null && "statusCode" in error
+        ? Number((error as { statusCode?: unknown }).statusCode)
+        : undefined;
+
+    if (statusCode === 401) {
       throw error;
     }
 
     throw createError({
       statusCode: 500,
       statusMessage: "Auth validation failed",
-      data: { message: error.message },
+      data: { message: getErrorMessage(error, "Auth validation failed") },
     });
   }
 });
