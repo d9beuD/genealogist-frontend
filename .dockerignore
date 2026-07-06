@@ -1,0 +1,10 @@
+.git
+.nuxt
+.output
+.data
+.nitro
+.cache
+dist
+node_modules
+coverage
+README.md

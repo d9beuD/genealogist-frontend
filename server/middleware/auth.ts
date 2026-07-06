@@ -17,7 +17,7 @@ function getErrorMessage(error: unknown, fallback: string): string {
 
 export default defineEventHandler(async (event: H3Event) => {
   const config = useRuntimeConfig();
-  const symfonyBaseUrl = config.public.symfonyBaseUrl;
+  const apiBaseUrl = config.public.apiBaseUrl;
 
   const path = getRequestURL(event).pathname;
 
@@ -41,7 +41,7 @@ export default defineEventHandler(async (event: H3Event) => {
   }
 
   try {
-    const response = await $fetch.raw(`${symfonyBaseUrl}/api/auth/validate`, {
+    const response = await $fetch.raw(`${apiBaseUrl}/api/me`, {
       headers: {
         cookie,
       },

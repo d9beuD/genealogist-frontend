@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: 2.x
+          cache: true
+
+      - name: Cache Deno modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/deno
+            /tmp/nuxt
+          key: deno-${{ runner.os }}-${{ hashFiles('deno.lock', 'deno.json', 'package.json') }}
+          restore-keys: |
+            deno-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: deno install
+
+      - name: Type check
+        run: deno task prepare
+
+      - name: Build
+        run: deno task build

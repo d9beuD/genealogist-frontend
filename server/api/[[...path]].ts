@@ -13,18 +13,18 @@ const hopByHopHeaders = new Set([
 
 export default defineEventHandler(async (event: H3Event) => {
   const config = useRuntimeConfig();
-  const symfonyBaseUrl = config.public.symfonyBaseUrl;
+  const apiBaseUrl = config.public.apiBaseUrl as string;
 
-  if (!symfonyBaseUrl) {
+  if (!apiBaseUrl) {
     throw createError({
       statusCode: 500,
-      statusMessage: "Symfony API URL not configured",
+      statusMessage: "API URL not configured",
     });
   }
 
   const path = getRouterParam(event, "path") || "";
 
-  const targetUrl = `${symfonyBaseUrl.replace(/\/$/, "")}/${path}`;
+  const targetUrl = `${apiBaseUrl.replace(/\/$/, "")}/${path}`;
 
   const query = getQuery(event);
 
@@ -67,9 +67,9 @@ export default defineEventHandler(async (event: H3Event) => {
 
     const setCookieHeader = response.headers.get("set-cookie");
     if (setCookieHeader) {
-      const cookies = splitCookiesString(setCookieHeader).map((cookie: string) =>
-        cookie.replace(/;\s*Domain=[^;]+/gi, "")
-      );
+      const cookies = splitCookiesString(setCookieHeader).map((
+        cookie: string,
+      ) => cookie.replace(/;\s*Domain=[^;]+/gi, ""));
 
       for (const cookie of cookies) {
         appendResponseHeader(event, "set-cookie", cookie);
@@ -91,7 +91,11 @@ export default defineEventHandler(async (event: H3Event) => {
     return response._data;
   } catch (error: unknown) {
     if (typeof error === "object" && error !== null && "statusCode" in error) {
-      const err = error as { statusCode?: number; statusMessage?: string; data?: unknown };
+      const err = error as {
+        statusCode?: number;
+        statusMessage?: string;
+        data?: unknown;
+      };
 
       throw createError({
         statusCode: err.statusCode || 500,

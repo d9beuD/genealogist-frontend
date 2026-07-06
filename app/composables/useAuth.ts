@@ -8,6 +8,7 @@ interface AuthState {
   user: User | null;
   loading: boolean;
   error: string | null;
+  initialized: boolean;
 }
 
 function getErrorMessage(error: unknown, fallback: string): string {
@@ -30,6 +31,7 @@ export const useAuth = () => {
     user: null,
     loading: true,
     error: null,
+    initialized: false,
   }));
 
   const checkAuth = async () => {
@@ -48,11 +50,23 @@ export const useAuth = () => {
       if (statusCode === 401 || statusCode === 403) {
         state.value.user = null;
       } else {
-        state.value.error = getErrorMessage(error, "Authentication check failed");
+        state.value.error = getErrorMessage(
+          error,
+          "Authentication check failed",
+        );
       }
     } finally {
       state.value.loading = false;
+      state.value.initialized = true;
     }
+  };
+
+  const ensureAuth = async () => {
+    if (state.value.initialized) {
+      return;
+    }
+
+    await checkAuth();
   };
 
   const login = async (credentials: { email: string; password: string }) => {
@@ -92,19 +106,13 @@ export const useAuth = () => {
     }
   };
 
-  onMounted(() => {
-    checkAuth();
-  });
-
-  if (import.meta.server) {
-    checkAuth();
-  }
-
   return {
     user: computed(() => state.value.user),
     loading: computed(() => state.value.loading),
     error: computed(() => state.value.error),
+    initialized: computed(() => state.value.initialized),
     checkAuth,
+    ensureAuth,
     login,
     logout,
   };

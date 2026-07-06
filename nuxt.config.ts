@@ -11,7 +11,13 @@ export default defineNuxtConfig({
       tailwindcss(),
     ],
   },
-  modules: ["shadcn-nuxt", "@nuxtjs/tailwindcss"],
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "@nuxt/a11y",
+    "@nuxt/hints",
+    "@nuxt/image",
+    "@nuxt/test-utils",
+  ],
   shadcn: {
     /**
      * Prefix for all the imported component.
@@ -28,7 +34,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      symfonyBaseUrl: "http://localhost:8000",
+      apiBaseUrl: process.env.NUXT_API_BASE_URL ?? "http://localhost:8000",
     },
   },
 });
