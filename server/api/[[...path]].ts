@@ -13,18 +13,18 @@ const hopByHopHeaders = new Set([
 
 export default defineEventHandler(async (event: H3Event) => {
   const config = useRuntimeConfig();
-  const symfonyBaseUrl = config.public.symfonyBaseUrl;
+  const apiBaseUrl = config.public.apiBaseUrl;
 
-  if (!symfonyBaseUrl) {
+  if (!apiBaseUrl) {
     throw createError({
       statusCode: 500,
-      statusMessage: "Symfony API URL not configured",
+      statusMessage: "API URL not configured",
     });
   }
 
   const path = getRouterParam(event, "path") || "";
 
-  const targetUrl = `${symfonyBaseUrl.replace(/\/$/, "")}/${path}`;
+  const targetUrl = `${apiBaseUrl.replace(/\/$/, "")}/${path}`;
 
   const query = getQuery(event);
 
