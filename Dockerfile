@@ -1,4 +1,4 @@
-FROM denoland/deno:alpine-2.4.1 AS builder
+FROM denoland/deno:2.4.1 AS builder
 
 WORKDIR /app
 
@@ -11,7 +11,7 @@ COPY modules ./modules
 RUN deno install
 RUN deno task build
 
-FROM denoland/deno:alpine-2.4.1 AS runner
+FROM denoland/deno:2.4.1 AS runner
 
 WORKDIR /app
 ENV NODE_ENV=production
