@@ -23,3 +23,10 @@ logs
 .env.*
 !.env.example
 .DS_Store
+
+# Test coverage
+coverage/
+
+# Playwright
+playwright-report/
+test-results/
