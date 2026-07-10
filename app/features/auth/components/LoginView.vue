@@ -1,11 +1,32 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { toTypedSchema } from "@vee-validate/zod";
+import { useForm } from "vee-validate";
 import CenteredCardLayout from "~/components/layout/CenteredCardLayout.vue";
+import { useAuth } from "../composables/useAuth";
+import { createLoginCredentialsSchema } from "../schema/loginCredentials";
 
-const email = ref("");
-const password = ref("");
-const activeTab = ref("login");
 const { t } = useI18n();
+const localePath = useLocalePath();
+const router = useRouter();
+const activeTab = ref("login");
+const { login, loading, error } = useAuth();
+
+const form = useForm({
+  validationSchema: toTypedSchema(createLoginCredentialsSchema({
+    emailRequired: t("login.emailRequired"),
+    emailInvalid: t("login.emailInvalid"),
+    passwordRequired: t("login.passwordRequired"),
+  })),
+  initialValues: {
+    email: "",
+    password: "",
+  },
+});
+
+const onSubmit = form.handleSubmit(async (values) => {
+  await login(values);
+  await router.push(localePath("/"));
+});
 </script>
 
 <template>
@@ -38,26 +59,40 @@ const { t } = useI18n();
       </p>
     </div>
 
-    <form class="space-y-4">
-      <div class="">
-        <label class="text-sm font-medium mb-2" for="email">{{ t("login.emailLabel") }}</label>
-        <Input id="email" v-model="email" type="email" autocomplete="email" :placeholder="t('login.emailPlaceholder')" />
-      </div>
+    <form class="space-y-4" @submit="onSubmit">
+      <FormField v-slot="{ componentField }" name="email">
+        <FormItem>
+          <FormLabel>{{ t("login.emailLabel") }}</FormLabel>
+          <FormControl>
+            <Input v-bind="componentField" type="email" autocomplete="email" :placeholder="t('login.emailPlaceholder')" />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      </FormField>
 
-      <div class="">
-        <div class="flex items-center justify-between gap-3 mb-2">
-          <label class="text-sm font-medium" for="password">{{ t("login.passwordLabel") }}</label>
-          <a class="text-primary text-sm font-medium hover:underline" href="#">
-            {{ t("login.forgotPassword") }}
-          </a>
-        </div>
-        <Input id="password" v-model="password" type="password" autocomplete="current-password" :placeholder="t('login.passwordPlaceholder')" />
-      </div>
+      <FormField v-slot="{ componentField }" name="password">
+        <FormItem>
+          <div class="flex items-center justify-between gap-3 mb-2">
+            <FormLabel>{{ t("login.passwordLabel") }}</FormLabel>
+            <span class="text-muted-foreground text-sm font-medium" aria-disabled="true">
+              {{ t("login.forgotPassword") }}
+            </span>
+          </div>
+          <FormControl>
+            <Input v-bind="componentField" type="password" autocomplete="current-password" :placeholder="t('login.passwordPlaceholder')" />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      </FormField>
+
+      <p v-if="error" class="text-destructive text-sm" role="alert">
+        {{ t("login.error") }}
+      </p>
 
       <Separator />
 
-      <Button class="w-full" type="submit">
-        {{ t("login.submit") }}
+      <Button class="w-full" type="submit" :disabled="loading || undefined">
+        {{ loading ? t("login.submitPending") : t("login.submit") }}
       </Button>
     </form>
 

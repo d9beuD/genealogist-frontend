@@ -1,4 +1,37 @@
 export default {
+  auth: {
+    login: "Sign in",
+    register: "Create account",
+  },
+  home: {
+    eyebrow: "Genealogist",
+    heading: "Welcome back",
+    description:
+      "You are signed in as {email}. Your family history workspace is ready.",
+  },
+  login: {
+    title: "Login",
+    heading: "Welcome back",
+    description:
+      "Sign in to keep your family tree, archives, and notes in sync.",
+    emailLabel: "Email",
+    emailPlaceholder: "name{'@'}example.com",
+    emailRequired: "Email is required",
+    emailInvalid: "Enter a valid email address",
+    passwordLabel: "Password",
+    passwordPlaceholder: "••••••••",
+    passwordRequired: "Password is required",
+    forgotPassword: "Forgot password?",
+    submit: "Sign in",
+    submitPending: "Signing in...",
+    error: "Sign in failed",
+    newHere: "New here?",
+    createAccount: "Create an account",
+    asideEyebrow: "Keep the family story moving",
+    asideHeading: "One place for names, dates, and the details that matter.",
+    asideSecurity: "Secure access for your account and records.",
+    asideQuickAccess: "Quick sign-in for returning researchers and editors.",
+  },
   register: {
     title: "Register",
     heading: "Create your account",

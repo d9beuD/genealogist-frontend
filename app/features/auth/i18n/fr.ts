@@ -1,4 +1,39 @@
 export default {
+  auth: {
+    login: "Connexion",
+    register: "Créer un compte",
+  },
+  home: {
+    eyebrow: "Genealogist",
+    heading: "Bon retour",
+    description:
+      "Vous êtes connecté avec {email}. Votre espace d'histoire familiale est prêt.",
+  },
+  login: {
+    title: "Connexion",
+    heading: "Bon retour",
+    description:
+      "Connectez-vous pour gérer votre arbre familial, vos archives et vos notes synchronisés.",
+    emailLabel: "E-mail",
+    emailPlaceholder: "nom{'@'}exemple.com",
+    emailRequired: "L'e-mail est requis",
+    emailInvalid: "Saisissez une adresse e-mail valide",
+    passwordLabel: "Mot de passe",
+    passwordPlaceholder: "••••••••",
+    passwordRequired: "Le mot de passe est requis",
+    forgotPassword: "Mot de passe oublié ?",
+    submit: "Se connecter",
+    submitPending: "Connexion...",
+    error: "La connexion a échoué",
+    newHere: "Nouveau ici ?",
+    createAccount: "Créer un compte",
+    asideEyebrow: "Gardez l'histoire familiale en mouvement",
+    asideHeading:
+      "Un seul endroit pour les noms, les dates et les détails importants.",
+    asideSecurity: "Accès sécurisé à votre compte et à vos dossiers.",
+    asideQuickAccess:
+      "Connexion rapide pour les chercheurs et éditeurs de retour.",
+  },
   register: {
     title: "Créer un compte",
     heading: "Créez votre compte",

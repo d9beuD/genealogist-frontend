@@ -1,4 +1,4 @@
-import type { H3Event } from "#imports";
+import type { H3Event } from "h3";
 
 const hopByHopHeaders = new Set([
   "connection",
@@ -10,6 +10,13 @@ const hopByHopHeaders = new Set([
   "transfer-encoding",
   "upgrade",
 ]);
+
+const backendPathByBrowserPath: Record<string, string> = {
+  "auth/login": "/api/auth",
+  "register": "/api/register",
+  "auth/me": "/api/me",
+  "auth/logout": "/logout",
+};
 
 export default defineEventHandler(async (event: H3Event) => {
   const config = useRuntimeConfig();
@@ -23,8 +30,9 @@ export default defineEventHandler(async (event: H3Event) => {
   }
 
   const path = getRouterParam(event, "path") || "";
-
-  const targetUrl = `${apiBaseUrl.replace(/\/$/, "")}/${path}`;
+  const apiOrigin = apiBaseUrl.replace(/\/+$/, "").replace(/\/api$/, "");
+  const backendPath = backendPathByBrowserPath[path] ?? `/api/${path}`;
+  const targetUrl = `${apiOrigin}${backendPath}`;
 
   const query = getQuery(event);
 
