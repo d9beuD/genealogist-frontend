@@ -2,7 +2,8 @@
 
 A quota-aware, parallel subagent coordination skill for Antigravity 2.0.
 
-Turns one big task into a set of isolated, efficient agent missions — without burning your weekly quota in 30 minutes.
+Turns one big task into a set of isolated, efficient agent missions — without
+burning your weekly quota in 30 minutes.
 
 ---
 
@@ -20,11 +21,13 @@ Turns one big task into a set of isolated, efficient agent missions — without 
 ## Install
 
 **One command (Windows PowerShell):**
+
 ```powershell
 node scripts/install.js
 ```
 
 **Manual install — copy this folder to:**
+
 ```
 Windows: %USERPROFILE%\.agents\skills\subagent-orchestrator\
 Mac/Linux: ~/.agents/skills/subagent-orchestrator/
@@ -37,11 +40,13 @@ Then restart your Antigravity session.
 ## Usage
 
 The skill auto-activates when your task:
+
 - Spans 3+ files or components
 - Needs parallel agents (UI + API, planner + builder, etc.)
 - Has quota risk (large codebase, many tool calls expected)
 
 Or trigger it manually:
+
 ```
 "Use subagent-orchestrator to build the auth flow"
 ```
@@ -68,26 +73,27 @@ subagent-orchestrator/
 
 ## Quota reference (quick)
 
-| Model | Cost |
-|-------|------|
-| Gemini Flash | 1x (default for all subagents) |
-| Claude Sonnet | ~4x (max 1 per mission) |
-| Claude Opus | Never use in subagents |
+| Model         | Cost                           |
+| ------------- | ------------------------------ |
+| Gemini Flash  | 1x (default for all subagents) |
+| Claude Sonnet | ~4x (max 1 per mission)        |
+| Claude Opus   | Never use in subagents         |
 
-| Mission size | Est. sprint used |
-|-------------|-----------------|
-| 1-file repair | < 5% |
-| Single feature | 15–25% |
-| Full flow (auth, API, UI) | 30–45% |
+| Mission size              | Est. sprint used |
+| ------------------------- | ---------------- |
+| 1-file repair             | < 5%             |
+| Single feature            | 15–25%           |
+| Full flow (auth, API, UI) | 30–45%           |
 
 ---
 
 ## Contributing
 
-This skill was built to fill a real gap — the community's existing subagent skills had no quota management, no parallel coordination, and no error recovery.
+This skill was built to fill a real gap — the community's existing subagent
+skills had no quota management, no parallel coordination, and no error recovery.
 
-PRs welcome. Follow the SKILL.md format from the Antigravity docs.
-Submit to: https://github.com/sickn33/antigravity-awesome-skills
+PRs welcome. Follow the SKILL.md format from the Antigravity docs. Submit to:
+https://github.com/sickn33/antigravity-awesome-skills
 
 ---
 

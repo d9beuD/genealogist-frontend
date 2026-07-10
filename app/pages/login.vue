@@ -5,7 +5,7 @@ import CenteredCardLayout from "~/components/layout/CenteredCardLayout.vue"
 definePageMeta({
   layout: false,
   middleware: "guest",
-})
+});
 
 useHead({
   title: "Login",

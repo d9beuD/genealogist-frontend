@@ -11,9 +11,12 @@ Follow these conventions when creating commits for Sentry projects.
 
 ## When to Use
 
-- The user asks to commit code, prepare a commit message, or save changes in git.
-- You need Sentry-style commit formatting with conventional commit structure and issue references.
-- The task requires enforcing branch safety before committing, especially avoiding direct commits on `main` or `master`.
+- The user asks to commit code, prepare a commit message, or save changes in
+  git.
+- You need Sentry-style commit formatting with conventional commit structure and
+  issue references.
+- The task requires enforcing branch safety before committing, especially
+  avoiding direct commits on `main` or `master`.
 
 ## Prerequisites
 
@@ -23,15 +26,20 @@ Before committing, always check the current branch:
 git branch --show-current
 ```
 
-**If you're on `main` or `master`, you MUST create a feature branch first** — unless the user explicitly asked to commit to main. Do not ask the user whether to create a branch; just proceed with branch creation. The `create-branch` skill will still propose a branch name for the user to confirm.
+**If you're on `main` or `master`, you MUST create a feature branch first** —
+unless the user explicitly asked to commit to main. Do not ask the user whether
+to create a branch; just proceed with branch creation. The `create-branch` skill
+will still propose a branch name for the user to confirm.
 
-Use the `create-branch` skill to create the branch. After `create-branch` completes, verify the current branch has changed before proceeding:
+Use the `create-branch` skill to create the branch. After `create-branch`
+completes, verify the current branch has changed before proceeding:
 
 ```bash
 git branch --show-current
 ```
 
-If still on `main` or `master` (e.g., the user aborted branch creation), stop — do not commit.
+If still on `main` or `master` (e.g., the user aborted branch creation), stop —
+do not commit.
 
 ## Format
 
@@ -43,24 +51,25 @@ If still on `main` or `master` (e.g., the user aborted branch creation), stop �
 <footer>
 ```
 
-The header is required. Scope is optional. All lines must stay under 100 characters.
+The header is required. Scope is optional. All lines must stay under 100
+characters.
 
 ## Commit Types
 
-| Type | Purpose |
-|------|---------|
-| `feat` | New feature |
-| `fix` | Bug fix |
-| `ref` | Refactoring (no behavior change) |
-| `perf` | Performance improvement |
-| `docs` | Documentation only |
-| `test` | Test additions or corrections |
-| `build` | Build system or dependencies |
-| `ci` | CI configuration |
-| `chore` | Maintenance tasks |
-| `style` | Code formatting (no logic change) |
-| `meta` | Repository metadata |
-| `license` | License changes |
+| Type      | Purpose                           |
+| --------- | --------------------------------- |
+| `feat`    | New feature                       |
+| `fix`     | Bug fix                           |
+| `ref`     | Refactoring (no behavior change)  |
+| `perf`    | Performance improvement           |
+| `docs`    | Documentation only                |
+| `test`    | Test additions or corrections     |
+| `build`   | Build system or dependencies      |
+| `ci`      | CI configuration                  |
+| `chore`   | Maintenance tasks                 |
+| `style`   | Code formatting (no logic change) |
+| `meta`    | Repository metadata               |
+| `license` | License changes                   |
 
 ## Subject Line Rules
 

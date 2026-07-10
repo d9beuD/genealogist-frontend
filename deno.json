@@ -1,5 +1,13 @@
 {
-  "allowScripts": ["npm:@parcel/watcher@2.5.6", "npm:esbuild@0.25.12", "npm:esbuild@0.28.1", "npm:fsevents@2.3.2", "npm:fsevents@2.3.3", "npm:sharp@0.34.5", "npm:vue-demi@0.14.10"],
+  "allowScripts": [
+    "npm:@parcel/watcher@2.5.6",
+    "npm:esbuild@0.25.12",
+    "npm:esbuild@0.28.1",
+    "npm:fsevents@2.3.2",
+    "npm:fsevents@2.3.3",
+    "npm:sharp@0.34.5",
+    "npm:vue-demi@0.14.10"
+  ],
   "tasks": {
     "build": "nuxt build",
     "dev": "nuxt dev",

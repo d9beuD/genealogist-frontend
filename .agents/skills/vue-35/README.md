@@ -1,8 +1,12 @@
 # Vue.js 3.5 Skill
 
-This skill provides practical guidance for building, reviewing, and refactoring Vue.js 3.5 applications. It focuses on production patterns rather than broad framework introductions.
+This skill provides practical guidance for building, reviewing, and refactoring
+Vue.js 3.5 applications. It focuses on production patterns rather than broad
+framework introductions.
 
-Use it for tasks involving Vue Single File Components, Composition API, `<script setup>`, TypeScript, Pinia, Vue Router, SSR-safe code, async UI states, and rendering performance.
+Use it for tasks involving Vue Single File Components, Composition API,
+`<script setup>`, TypeScript, Pinia, Vue Router, SSR-safe code, async UI states,
+and rendering performance.
 
 ## Typical Requests
 
@@ -25,8 +29,11 @@ Use it for tasks involving Vue Single File Components, Composition API, `<script
 ## Files
 
 - `SKILL.md` contains the operational instructions.
-- `references/vue-35-patterns.md` contains deeper examples, checklists, and anti-patterns.
+- `references/vue-35-patterns.md` contains deeper examples, checklists, and
+  anti-patterns.
 
 ## Notes
 
-The skill assumes Vue 3.5 or newer. For general JavaScript and TypeScript work, use the JavaScript or TypeScript skills instead. For visual design-only work, use a UX or UI design skill.
+The skill assumes Vue 3.5 or newer. For general JavaScript and TypeScript work,
+use the JavaScript or TypeScript skills instead. For visual design-only work,
+use a UX or UI design skill.

@@ -1,14 +1,16 @@
 import type { RouteLocationNormalized } from "vue-router";
 
-export default defineNuxtRouteMiddleware(async (to: RouteLocationNormalized) => {
-  const { user, ensureAuth } = useAuth();
+export default defineNuxtRouteMiddleware(
+  async (to: RouteLocationNormalized) => {
+    const { user, ensureAuth } = useAuth();
 
-  await ensureAuth(to);
+    await ensureAuth(to);
 
-  if (!user.value) {
-    return navigateTo({
-      path: "/login",
-      query: to.fullPath === "/" ? undefined : { redirect: to.fullPath },
-    });
-  }
-});
+    if (!user.value) {
+      return navigateTo({
+        path: "/login",
+        query: to.fullPath === "/" ? undefined : { redirect: to.fullPath },
+      });
+    }
+  },
+);

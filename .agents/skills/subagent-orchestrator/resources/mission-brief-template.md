@@ -1,6 +1,7 @@
 # Mission Brief Template
 
-Copy this before every multi-agent task. Fill it in, share with the orchestrator, wait for confirmation.
+Copy this before every multi-agent task. Fill it in, share with the
+orchestrator, wait for confirmation.
 
 ```
 MISSION BRIEF
