@@ -9,7 +9,9 @@ export default defineNuxtRouteMiddleware(
 
     if (user.value) {
       const redirect = to.query.redirect;
-      return navigateTo(typeof redirect === "string" ? redirect : localePath("/"));
+      return navigateTo(
+        typeof redirect === "string" ? redirect : localePath("/"),
+      );
     }
   },
 );

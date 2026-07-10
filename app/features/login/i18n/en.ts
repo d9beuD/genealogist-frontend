@@ -6,7 +6,8 @@ export default {
   login: {
     title: "Login",
     heading: "Welcome back",
-    description: "Sign in to keep your family tree, archives, and notes in sync.",
+    description:
+      "Sign in to keep your family tree, archives, and notes in sync.",
     emailLabel: "Email",
     emailPlaceholder: "name{'@'}example.com",
     passwordLabel: "Password",

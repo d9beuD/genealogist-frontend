@@ -12,7 +12,7 @@ const { t } = useI18n();
   <CenteredCardLayout
     card-class="border-border/60 shadow-xl"
     content-class="gap-6"
-    aside-class="bg-primary text-primary-foreground hidden md:flex md:flex-col md:justify-between p-8"
+    aside-class="bg-primary text-primary-foreground hidden md:flex md:flex-col md:justify-between"
   >
     <template #header>
       <Tabs v-model="activeTab">
@@ -37,13 +37,13 @@ const { t } = useI18n();
     </div>
 
     <form class="space-y-4">
-      <div class="space-y-2">
-        <label class="text-sm font-medium" for="email">{{ t("login.emailLabel") }}</label>
+      <div class="">
+        <label class="text-sm font-medium mb-2" for="email">{{ t("login.emailLabel") }}</label>
         <Input id="email" v-model="email" type="email" autocomplete="email" :placeholder="t('login.emailPlaceholder')" />
       </div>
 
-      <div class="space-y-2">
-        <div class="flex items-center justify-between gap-3">
+      <div class="">
+        <div class="flex items-center justify-between gap-3 mb-2">
           <label class="text-sm font-medium" for="password">{{ t("login.passwordLabel") }}</label>
           <a class="text-primary text-sm font-medium hover:underline" href="#">
             {{ t("login.forgotPassword") }}
@@ -67,7 +67,7 @@ const { t } = useI18n();
     </p>
 
     <template #aside>
-      <div class="flex h-full flex-col gap-6 rounded-xl bg-[linear-gradient(180deg,rgba(255,255,255,0.14),rgba(255,255,255,0.04))] p-6">
+      <div class="flex h-full flex-col gap-6 rounded-xl bg-[linear-gradient(180deg,rgba(255,255,255,0.14),rgba(255,255,255,0.04))] p-8">
         <div class="space-y-3">
           <p class="text-sm font-medium uppercase tracking-[0.2em] text-white/70">
             {{ t("login.asideEyebrow") }}
