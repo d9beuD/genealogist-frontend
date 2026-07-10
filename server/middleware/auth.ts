@@ -28,6 +28,7 @@ export default defineEventHandler(async (event: H3Event) => {
   const publicRoutes = [
     "/api/auth/login",
     "/api/auth/register",
+    "/api/register",
     "/api/auth/forgot-password",
   ];
   if (publicRoutes.some((route) => path.startsWith(route))) {

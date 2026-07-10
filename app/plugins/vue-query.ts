@@ -1,6 +1,7 @@
-import { QueryClient } from "@tanstack/vue-query";
+import { QueryClient, VueQueryPlugin } from "@tanstack/vue-query";
+import type { NuxtApp } from "nuxt/app";
 
-export default defineNuxtPlugin(() => {
+export default defineNuxtPlugin((nuxtApp: NuxtApp) => {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -9,6 +10,8 @@ export default defineNuxtPlugin(() => {
       },
     },
   });
+
+  nuxtApp.vueApp.use(VueQueryPlugin, { queryClient });
 
   return {
     provide: {
