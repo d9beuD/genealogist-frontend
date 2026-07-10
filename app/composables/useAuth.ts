@@ -1,3 +1,5 @@
+import type { RouteLocationNormalized } from "vue-router";
+
 interface User {
   id: number;
   email: string;
@@ -34,7 +36,7 @@ export const useAuth = () => {
     initialized: false,
   }));
 
-  const checkAuth = async () => {
+  const checkAuth = async (route?: RouteLocationNormalized) => {
     state.value.loading = true;
     state.value.error = null;
 
@@ -49,6 +51,13 @@ export const useAuth = () => {
 
       if (statusCode === 401 || statusCode === 403) {
         state.value.user = null;
+
+        if (route && route.path !== "/login") {
+          await navigateTo({
+            path: "/login",
+            query: route.fullPath === "/" ? undefined : { redirect: route.fullPath },
+          });
+        }
       } else {
         state.value.error = getErrorMessage(
           error,
@@ -61,12 +70,12 @@ export const useAuth = () => {
     }
   };
 
-  const ensureAuth = async () => {
+  const ensureAuth = async (route?: RouteLocationNormalized) => {
     if (state.value.initialized) {
       return;
     }
 
-    await checkAuth();
+    await checkAuth(route);
   };
 
   const login = async (credentials: { email: string; password: string }) => {
