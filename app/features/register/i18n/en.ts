@@ -25,6 +25,7 @@ export default {
     asideEyebrow: "Start with the basics",
     asideHeading: "A clean place to collect the names, dates, and stories.",
     asideSecurity: "Keep your account and records protected from day one.",
-    asideQuickAccess: "Get to your workspace quickly once the account is ready.",
+    asideQuickAccess:
+      "Get to your workspace quickly once the account is ready.",
   },
 };

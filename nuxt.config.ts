@@ -28,12 +28,18 @@ export default defineNuxtConfig({
     locales: [
       {
         code: "en",
-        files: ["app/features/login/i18n/en.ts", "app/features/register/i18n/en.ts"],
+        files: [
+          "app/features/login/i18n/en.ts",
+          "app/features/register/i18n/en.ts",
+        ],
         name: "English",
       },
       {
         code: "fr",
-        files: ["app/features/login/i18n/fr.ts", "app/features/register/i18n/fr.ts"],
+        files: [
+          "app/features/login/i18n/fr.ts",
+          "app/features/register/i18n/fr.ts",
+        ],
         name: "Français",
       },
     ],
