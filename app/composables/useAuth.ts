@@ -1,4 +1,5 @@
-import type { RouteLocationNormalized } from "vue-router";
+import { loginWithCredentials } from "~/features/login/api/login";
+import type { LoginCredentials } from "~/features/login/schema/loginCredentials";
 
 interface User {
   id: number;
@@ -36,7 +37,7 @@ export const useAuth = () => {
     initialized: false,
   }));
 
-  const checkAuth = async (route?: RouteLocationNormalized) => {
+  const checkAuth = async () => {
     state.value.loading = true;
     state.value.error = null;
 
@@ -51,13 +52,6 @@ export const useAuth = () => {
 
       if (statusCode === 401 || statusCode === 403) {
         state.value.user = null;
-
-        if (route && route.path !== "/login") {
-          await navigateTo({
-            path: "/login",
-            query: route.fullPath === "/" ? undefined : { redirect: route.fullPath },
-          });
-        }
       } else {
         state.value.error = getErrorMessage(
           error,
@@ -70,23 +64,20 @@ export const useAuth = () => {
     }
   };
 
-  const ensureAuth = async (route?: RouteLocationNormalized) => {
+  const ensureAuth = async () => {
     if (state.value.initialized) {
       return;
     }
 
-    await checkAuth(route);
+    await checkAuth();
   };
 
-  const login = async (credentials: { email: string; password: string }) => {
+  const login = async (credentials: LoginCredentials) => {
     state.value.loading = true;
     state.value.error = null;
 
     try {
-      const result = await $fetch("/api/auth/login", {
-        method: "POST",
-        body: credentials,
-      });
+      const result = await loginWithCredentials(credentials);
 
       await checkAuth();
 
