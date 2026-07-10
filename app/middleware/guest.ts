@@ -1,11 +1,12 @@
-export default defineNuxtRouteMiddleware(async () => {
-  const route = useRoute();
+import type { RouteLocationNormalized } from "vue-router";
+
+export default defineNuxtRouteMiddleware(async (to: RouteLocationNormalized) => {
   const { user, ensureAuth } = useAuth();
 
   await ensureAuth();
 
   if (user.value) {
-    const redirect = route.query.redirect;
+    const redirect = to.query.redirect;
     return navigateTo(typeof redirect === "string" ? redirect : "/");
   }
 });

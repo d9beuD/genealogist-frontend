@@ -14,9 +14,9 @@ export default defineNuxtConfig({
   modules: [
     "@nuxtjs/tailwindcss",
     "@nuxt/a11y",
-    "@nuxt/hints",
     "@nuxt/image",
     "@nuxt/test-utils",
+    "@nuxtjs/i18n",
   ],
   shadcn: {
     /**
