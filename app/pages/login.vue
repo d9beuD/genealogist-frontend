@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue"
+import CenteredCardLayout from "~/components/layout/CenteredCardLayout.vue"
 
 definePageMeta({
   layout: false,
@@ -12,6 +13,8 @@ useHead({
 
 const email = ref("")
 const password = ref("")
+const activeTab = ref('login')
+const { t } = useI18n()
 </script>
 
 <template>
@@ -21,12 +24,16 @@ const password = ref("")
     aside-class="bg-primary text-primary-foreground hidden md:flex md:flex-col md:justify-between p-8"
   >
     <template #header>
-      <div class="flex items-center gap-3 text-sm font-medium text-muted-foreground">
-        <div class="bg-primary text-primary-foreground flex h-9 w-9 items-center justify-center rounded-lg font-semibold">
-          G
-        </div>
-        Genealogist
-      </div>
+      <Tabs v-model="activeTab">
+        <TabsList class="grid w-fit grid-cols-2">
+          <TabsTrigger value="login">
+            {{ t('auth.login', 'Sign in') }}
+          </TabsTrigger>
+          <TabsTrigger value="register" disabled>
+            {{ t('auth.register', 'Create account') }}
+          </TabsTrigger>
+        </TabsList>
+      </Tabs>
     </template>
 
     <div class="space-y-2">
@@ -34,7 +41,7 @@ const password = ref("")
         Welcome back
       </h1>
       <p class="text-muted-foreground text-sm leading-6">
-        Sign in to continue managing your family tree, records, and notes.
+        Sign in to keep your family tree, archives, and notes in sync.
       </p>
     </div>
 
@@ -54,12 +61,14 @@ const password = ref("")
         <Input id="password" v-model="password" type="password" autocomplete="current-password" placeholder="••••••••" />
       </div>
 
+      <Separator />
+
       <Button class="w-full" type="submit">
         Sign in
       </Button>
     </form>
 
-    <p class="text-muted-foreground text-sm">
+    <p class="text-muted-foreground text-sm leading-6">
       New here?
       <a class="text-primary font-medium hover:underline" href="#">
         Create an account

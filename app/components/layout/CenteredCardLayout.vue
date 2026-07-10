@@ -26,8 +26,8 @@ const props = withDefaults(defineProps<CenteredCardLayoutProps>(), {
         <slot name="header" />
       </div>
 
-      <Card :class="cn('overflow-hidden p-0 md:min-h-[35rem]', props.cardClass)">
-        <CardContent class="grid flex-1 p-0 md:grid-cols-2">
+      <Card :class="cn('overflow-hidden p-0 md:min-h-140', props.cardClass)">
+        <CardContent class="grid flex-1 md:grid-cols-2">
           <div :class="cn('bg-card min-h-full flex flex-col justify-center p-6 md:p-8', props.contentClass)">
             <slot />
           </div>

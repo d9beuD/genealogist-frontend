@@ -1,4 +1,4 @@
-import type { H3Event } from "#imports";
+import type { H3Event } from "h3";
 
 function getErrorMessage(error: unknown, fallback: string): string {
   if (error instanceof Error) {
@@ -20,6 +20,10 @@ export default defineEventHandler(async (event: H3Event) => {
   const apiBaseUrl = config.public.apiBaseUrl;
 
   const path = getRequestURL(event).pathname;
+
+  if (!path.startsWith("/api/")) {
+    return;
+  }
 
   const publicRoutes = [
     "/api/auth/login",
@@ -65,9 +69,9 @@ export default defineEventHandler(async (event: H3Event) => {
     }
 
     throw createError({
-      statusCode: 500,
-      statusMessage: "Auth validation failed",
-      data: { message: getErrorMessage(error, "Auth validation failed") },
+      statusCode: 401,
+      statusMessage: "Unauthorized",
+      data: { message: getErrorMessage(error, "Authentication required") },
     });
   }
 });
