@@ -36,6 +36,9 @@ const mutation = useMutation({
   },
 });
 
+const hasRegistrationError = computed(() => mutation.isError.value);
+const isRegistering = computed(() => mutation.isPending.value);
+
 const onSubmit = form.handleSubmit(async (values) => {
   await mutation.mutateAsync(values);
 });
@@ -50,7 +53,7 @@ const onSubmit = form.handleSubmit(async (values) => {
     <template #header>
       <Tabs v-model="activeTab">
         <TabsList class="grid w-fit grid-cols-2">
-          <TabsTrigger value="login" as-child>
+          <TabsTrigger value="login" :as-child="true">
             <NuxtLinkLocale to="/login">
               {{ t("auth.login") }}
             </NuxtLinkLocale>
@@ -112,12 +115,12 @@ const onSubmit = form.handleSubmit(async (values) => {
         </FormItem>
       </FormField>
 
-      <p v-if="mutation.isError.value" class="text-destructive text-sm">
+      <p v-if="hasRegistrationError" class="text-destructive text-sm">
         {{ t("register.error") }}
       </p>
 
-      <Button class="w-full" type="submit" :disabled="mutation.isPending.value">
-        {{ mutation.isPending.value ? t("register.submitPending") : t("register.submit") }}
+      <Button class="w-full" type="submit" :disabled="isRegistering || undefined">
+        {{ isRegistering ? t("register.submitPending") : t("register.submit") }}
       </Button>
     </form>
 

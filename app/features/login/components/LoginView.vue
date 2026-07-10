@@ -18,11 +18,9 @@ const { t } = useI18n();
       <Tabs v-model="activeTab">
         <TabsList class="grid w-fit grid-cols-2">
           <TabsTrigger value="login">
-            <NuxtLinkLocale to="/login">
-              {{ t("auth.login") }}
-            </NuxtLinkLocale>
+            {{ t("auth.login") }}
           </TabsTrigger>
-          <TabsTrigger value="register" as-child>
+          <TabsTrigger value="register" :as-child="true">
             <NuxtLinkLocale to="/register">
               {{ t("auth.register") }}
             </NuxtLinkLocale>
@@ -65,10 +63,10 @@ const { t } = useI18n();
 
     <p class="text-muted-foreground text-sm leading-6">
       {{ t("login.newHere") }}
-        <NuxtLinkLocale class="text-primary font-medium hover:underline" to="/register">
-          {{ t("login.createAccount") }}
-        </NuxtLinkLocale>
-      </p>
+      <NuxtLinkLocale class="text-primary font-medium hover:underline" to="/register">
+        {{ t("login.createAccount") }}
+      </NuxtLinkLocale>
+    </p>
 
     <template #aside>
       <div class="flex h-full flex-col gap-6 rounded-xl bg-[linear-gradient(180deg,rgba(255,255,255,0.14),rgba(255,255,255,0.04))] p-8">
