@@ -27,6 +27,7 @@ export default defineEventHandler(async (event: H3Event) => {
 
   const publicRoutes = [
     "/api/auth/login",
+    "/api/auth/me",
     "/api/register",
     "/api/auth/forgot-password",
   ];

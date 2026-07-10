@@ -71,6 +71,8 @@ export default defineEventHandler(async (event: H3Event) => {
       body,
       query,
       redirect: "manual",
+      // Forward backend 4xx/5xx responses instead of treating them as proxy errors.
+      ignoreResponseError: true,
     });
 
     const setCookieHeader = response.headers.get("set-cookie");

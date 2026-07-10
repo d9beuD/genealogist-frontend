@@ -32,9 +32,16 @@ function getErrorMessage(error: unknown, fallback: string): string {
 }
 
 function getStatusCode(error: unknown): number | undefined {
-  if (typeof error === "object" && error !== null && "statusCode" in error) {
-    return Number((error as { statusCode?: unknown }).statusCode);
+  if (typeof error !== "object" || error === null) {
+    return undefined;
   }
+
+  const { status, statusCode } = error as {
+    status?: unknown;
+    statusCode?: unknown;
+  };
+
+  return Number(statusCode ?? status) || undefined;
 }
 
 export const useAuth = () => {
