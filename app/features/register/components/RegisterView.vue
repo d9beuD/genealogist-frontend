@@ -8,6 +8,7 @@ import { registerWithCredentials } from "../api/register";
 
 const { t } = useI18n();
 const router = useRouter();
+const activeTab = ref("register");
 
 const schema = toTypedSchema(
   z.object({
@@ -47,7 +48,7 @@ const onSubmit = form.handleSubmit(async (values) => {
     aside-class="bg-primary text-primary-foreground hidden md:flex md:flex-col md:justify-between"
   >
     <template #header>
-      <Tabs value="register">
+      <Tabs v-model="activeTab">
         <TabsList class="grid w-fit grid-cols-2">
           <TabsTrigger value="login" as-child>
             <NuxtLinkLocale to="/login">
@@ -111,12 +112,12 @@ const onSubmit = form.handleSubmit(async (values) => {
         </FormItem>
       </FormField>
 
-      <p v-if="mutation.isError" class="text-destructive text-sm">
+      <p v-if="mutation.isError.value" class="text-destructive text-sm">
         {{ t("register.error") }}
       </p>
 
-      <Button class="w-full" type="submit" :disabled="mutation.isPending">
-        {{ mutation.isPending ? t("register.submitPending") : t("register.submit") }}
+      <Button class="w-full" type="submit" :disabled="mutation.isPending.value">
+        {{ mutation.isPending.value ? t("register.submitPending") : t("register.submit") }}
       </Button>
     </form>
 
