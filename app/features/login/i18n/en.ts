@@ -1,0 +1,23 @@
+export default {
+  auth: {
+    login: "Sign in",
+    register: "Create account",
+  },
+  login: {
+    title: "Login",
+    heading: "Welcome back",
+    description: "Sign in to keep your family tree, archives, and notes in sync.",
+    emailLabel: "Email",
+    emailPlaceholder: "name{'@'}example.com",
+    passwordLabel: "Password",
+    passwordPlaceholder: "••••••••",
+    forgotPassword: "Forgot password?",
+    submit: "Sign in",
+    newHere: "New here?",
+    createAccount: "Create an account",
+    asideEyebrow: "Keep the family story moving",
+    asideHeading: "One place for names, dates, and the details that matter.",
+    asideSecurity: "Secure access for your account and records.",
+    asideQuickAccess: "Quick sign-in for returning researchers and editors.",
+  },
+};

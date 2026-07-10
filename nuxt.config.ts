@@ -18,6 +18,18 @@ export default defineNuxtConfig({
     "@nuxt/test-utils",
     "@nuxtjs/i18n",
   ],
+  i18n: {
+    defaultLocale: "en",
+    restructureDir: ".",
+    langDir: ".",
+    locales: [
+      {
+        code: "en",
+        files: ["app/features/login/i18n/en.ts"],
+        name: "English",
+      },
+    ],
+  },
   shadcn: {
     /**
      * Prefix for all the imported component.

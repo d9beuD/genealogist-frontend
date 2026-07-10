@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import LoginView from "~/features/login/components/LoginView.vue";
-import { loginMessages } from "~/features/login/i18n/loginMessages";
+
+const { t } = useI18n();
 
 definePageMeta({
   layout: false,
@@ -8,7 +9,7 @@ definePageMeta({
 });
 
 useHead({
-  title: loginMessages.title,
+  title: () => t("login.title"),
 });
 </script>
 
