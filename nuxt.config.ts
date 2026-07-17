@@ -9,6 +9,9 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ["~/assets/css/tailwind.css"],
   vite: {
+    optimizeDeps: {
+      include: ["@lucide/vue"],
+    },
     plugins: [
       tailwindcss(),
     ],
