@@ -1,6 +1,7 @@
-import type { Collection } from "~/lib/hydra";
-import type { Tree } from "../domain/tree";
+import type { Collection, Item } from "~/lib/hydra";
+import type { CreateTreeInput, Tree } from "../domain/tree";
 
 export interface TreeGateway {
   getTrees(): Promise<Collection<Tree>>;
+  createTree(input: CreateTreeInput): Promise<Item<Tree>>;
 }
