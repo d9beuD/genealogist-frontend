@@ -48,6 +48,8 @@ export default defineEventHandler(async (event: H3Event) => {
     "referer",
     "cache-control",
     "x-request-id",
+    "x-csrf-token",
+    "x-xsrf-token",
   ];
 
   for (const header of headerMap) {
