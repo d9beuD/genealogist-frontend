@@ -1,0 +1,20 @@
+export default {
+  common: {
+    breadcrumb: "Fil d'Ariane",
+    close: "Fermer",
+    commandPalette: "Palette de commandes",
+    commandSearch: "Recherchez une commande à exécuter...",
+    first: "Premier",
+    last: "Dernier",
+    loading: "Chargement",
+    more: "Plus",
+    morePages: "Plus de pages",
+    next: "Suivant",
+    nextSlide: "Diapositive suivante",
+    previous: "Précédent",
+    previousSlide: "Diapositive précédente",
+    sidebar: "Barre latérale",
+    sidebarDescription: "Affiche la barre latérale mobile.",
+    toggleSidebar: "Basculer la barre latérale",
+  },
+};

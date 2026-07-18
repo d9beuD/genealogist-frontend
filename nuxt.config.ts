@@ -106,14 +106,18 @@ export default defineNuxtConfig({
       {
         code: "en",
         files: [
+          "app/i18n/en.ts",
           "app/features/auth/i18n/en.ts",
+          "app/features/tree/i18n/en.ts",
         ],
         name: "English",
       },
       {
         code: "fr",
         files: [
+          "app/i18n/fr.ts",
           "app/features/auth/i18n/fr.ts",
+          "app/features/tree/i18n/fr.ts",
         ],
         name: "Français",
       },

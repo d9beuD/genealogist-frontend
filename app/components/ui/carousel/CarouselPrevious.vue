@@ -16,6 +16,8 @@ const props = withDefaults(defineProps<{
 })
 
 const { orientation, canScrollPrev, scrollPrev } = useCarousel()
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -35,7 +37,7 @@ const { orientation, canScrollPrev, scrollPrev } = useCarousel()
   >
     <slot>
       <ArrowLeft />
-      <span class="sr-only">Previous Slide</span>
+      <span class="sr-only">{{ t("common.previousSlide") }}</span>
     </slot>
   </Button>
 </template>
