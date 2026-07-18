@@ -1,17 +1,38 @@
 <script setup lang="ts">
+import { FolderTree, House } from "@lucide/vue";
+
 const { user } = useAuth();
+const route = useRoute();
+const { t } = useI18n();
+const routeBaseName = useRouteBaseName();
+
+const isTreesRoute = computed(() => routeBaseName(route) === "trees");
 </script>
 
 <template>
   <SidebarProvider>
     <Sidebar collapsible="offcanvas">
       <SidebarHeader class="border-b border-sidebar-border px-4 py-5">
-        <NuxtLink class="text-lg font-semibold tracking-tight" to="/">
+        <NuxtLinkLocale class="flex items-center gap-2 text-lg font-semibold tracking-tight" to="/">
+          <House aria-hidden="true" class="size-4 shrink-0" />
           Genealogist
-        </NuxtLink>
+        </NuxtLinkLocale>
       </SidebarHeader>
 
-      <SidebarContent />
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton as-child :is-active="isTreesRoute">
+                <NuxtLinkLocale to="/trees">
+                  <FolderTree aria-hidden="true" class="size-4 shrink-0" />
+                  <span>{{ t("navigation.trees") }}</span>
+                </NuxtLinkLocale>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroup>
+      </SidebarContent>
 
       <SidebarFooter class="border-t border-sidebar-border px-4 py-4">
         <p class="truncate text-sm text-sidebar-foreground/70">

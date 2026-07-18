@@ -12,6 +12,10 @@
 
 - Single Nuxt 4 app with Vue 3, TypeScript, and Tailwind v4.
 - App code lives under `app/`.
+- Feature code lives under `app/features/<feature>/`; use hexagonal boundaries:
+  `domain/`, `ports/`, `application/`, `infrastructure/`, `presentation/`.
+- Pages remain thin route adapters: keep page metadata, route-specific head
+  state, and feature-view composition in `app/pages/`; keep feature logic out.
 - Server proxy/middleware lives under `server/`; client API helpers call
   `/api/*`, not the backend URL directly.
 - `server/api/[[...path]].ts` proxies `/api/*` to

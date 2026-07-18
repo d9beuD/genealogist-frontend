@@ -9,6 +9,21 @@ export default {
     description:
       "You are signed in as {email}. Your family history workspace is ready.",
   },
+  navigation: {
+    trees: "My trees",
+  },
+  trees: {
+    title: "My trees",
+    eyebrow: "Trees",
+    heading: "My trees",
+    description: "Browse the family trees you own.",
+    createdAt: "Created {date}",
+    emptyTitle: "No trees yet",
+    emptyDescription:
+      "Your owned family trees will appear here once they are created.",
+    errorTitle: "Could not load trees",
+    errorDescription: "Refresh the page or try again in a moment.",
+  },
   login: {
     title: "Login",
     heading: "Welcome back",

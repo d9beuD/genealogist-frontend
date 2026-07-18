@@ -9,6 +9,21 @@ export default {
     description:
       "Vous êtes connecté avec {email}. Votre espace d'histoire familiale est prêt.",
   },
+  navigation: {
+    trees: "Mes arbres",
+  },
+  trees: {
+    title: "Mes arbres",
+    eyebrow: "Arbres",
+    heading: "Mes arbres",
+    description: "Parcourez les arbres familiaux dont vous êtes propriétaire.",
+    createdAt: "Créé le {date}",
+    emptyTitle: "Aucun arbre pour le moment",
+    emptyDescription:
+      "Vos arbres familiaux apparaîtront ici une fois qu'ils seront créés.",
+    errorTitle: "Impossible de charger les arbres",
+    errorDescription: "Actualisez la page ou réessayez dans un instant.",
+  },
   login: {
     title: "Connexion",
     heading: "Bon retour",
