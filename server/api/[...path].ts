@@ -19,8 +19,8 @@ const backendPathByBrowserPath: Record<string, string> = {
 };
 
 export default defineEventHandler(async (event: H3Event) => {
-  const config = useRuntimeConfig();
-  const apiBaseUrl = config.public.apiBaseUrl as string;
+  const config = useRuntimeConfig(event);
+  const apiBaseUrl = config.apiBaseUrl as string;
 
   if (!apiBaseUrl) {
     throw createError({

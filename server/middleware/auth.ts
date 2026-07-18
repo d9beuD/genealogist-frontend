@@ -16,8 +16,11 @@ function getErrorMessage(error: unknown, fallback: string): string {
 }
 
 export default defineEventHandler(async (event: H3Event) => {
-  const config = useRuntimeConfig();
-  const apiBaseUrl = config.public.apiBaseUrl.replace(/\/+$/, "").replace(/\/api$/, "");
+  const config = useRuntimeConfig(event);
+  const apiBaseUrl = config.apiBaseUrl.replace(/\/+$/, "").replace(
+    /\/api$/,
+    "",
+  );
 
   const path = getRequestURL(event).pathname;
 
