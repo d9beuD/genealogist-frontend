@@ -1,6 +1,8 @@
 import type { Tree } from "../domain/tree";
 import type { TreeGateway } from "../ports/TreeGateway";
 
-export function getTrees(gateway: TreeGateway): Promise<Tree[]> {
-  return gateway.getTrees();
+export async function getTrees(gateway: TreeGateway): Promise<Tree[]> {
+  const collection = await gateway.getTrees();
+
+  return collection.member;
 }
