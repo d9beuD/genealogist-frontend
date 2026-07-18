@@ -1,3 +1,4 @@
+import type { Item } from "~/lib/hydra";
 import type { AuthGateway } from "../ports/AuthGateway";
 import type { AuthUser } from "../domain/auth";
 
@@ -20,6 +21,6 @@ export const nuxtAuthGateway: AuthGateway = {
     });
   },
   getCurrentUser() {
-    return useRequestFetch<AuthUser>()("/api/auth/me");
+    return useRequestFetch<Item<AuthUser>>()("/api/auth/me");
   },
 };

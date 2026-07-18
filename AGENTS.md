@@ -14,12 +14,14 @@
 - App code lives under `app/`.
 - Feature code lives under `app/features/<feature>/`; use hexagonal boundaries:
   `domain/`, `ports/`, `application/`, `infrastructure/`, `presentation/`.
+- API entities/DTOs from API Platform/Hydra responses should use shared Hydra
+  types (`Item<T>`, `Collection<T>`) rather than plain DTO/array envelopes.
 - Pages remain thin route adapters: keep page metadata, route-specific head
   state, and feature-view composition in `app/pages/`; keep feature logic out.
 - Server proxy/middleware lives under `server/`; client API helpers call
   `/api/*`, not the backend URL directly.
-- `server/api/[[...path]].ts` proxies `/api/*` to
-  `runtimeConfig.public.apiBaseUrl` and forwards cookies/selected headers.
+- `server/api/[...path].ts` proxies `/api/*` to `runtimeConfig.apiBaseUrl` and
+  forwards cookies/selected headers.
 - `server/middleware/auth.ts` protects `/api/*` except
   login/register/forgot-password by validating cookies against
   `${NUXT_API_BASE_URL}/api/me`.

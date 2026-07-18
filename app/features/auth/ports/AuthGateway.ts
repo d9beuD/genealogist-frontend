@@ -1,3 +1,4 @@
+import type { Item } from "~/lib/hydra";
 import type {
   AuthUser,
   LoginCredentials,
@@ -8,5 +9,5 @@ export interface AuthGateway {
   login(credentials: LoginCredentials): Promise<void>;
   register(credentials: RegisterCredentials): Promise<void>;
   logout(): Promise<void>;
-  getCurrentUser(): Promise<AuthUser>;
+  getCurrentUser(): Promise<Item<AuthUser>>;
 }
