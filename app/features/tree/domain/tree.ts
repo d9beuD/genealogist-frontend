@@ -3,3 +3,7 @@ export type Tree = {
   name: string;
   createdAt: string;
 };
+
+export type CreateTreeInput = {
+  name: string;
+};
