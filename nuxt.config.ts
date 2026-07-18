@@ -107,6 +107,7 @@ export default defineNuxtConfig({
         code: "en",
         files: [
           "app/features/auth/i18n/en.ts",
+          "app/features/tree/i18n/en.ts",
         ],
         name: "English",
       },
@@ -114,6 +115,7 @@ export default defineNuxtConfig({
         code: "fr",
         files: [
           "app/features/auth/i18n/fr.ts",
+          "app/features/tree/i18n/fr.ts",
         ],
         name: "Français",
       },
