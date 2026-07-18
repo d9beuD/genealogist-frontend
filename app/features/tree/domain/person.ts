@@ -1,0 +1,21 @@
+export type Person = {
+  id: number;
+  firstname: string;
+  lastname: string;
+  birth: string | null;
+  death: string | null;
+  birthDayUnsure: boolean;
+  birthMonthUnsure: boolean;
+  birthYearUnsure: boolean;
+  deathDayUnsure: boolean;
+  deathMonthUnsure: boolean;
+  deathYearUnsure: boolean;
+  portrait: string | null;
+  bio: string | null;
+  gender: number;
+  dead: boolean;
+  birthName: string | null;
+  otherNames: string | null;
+  birthPlace: string | null;
+  deathPlace: string | null;
+};
