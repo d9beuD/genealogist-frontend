@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import LoginView from "~/features/login/components/LoginView.vue";
+import LoginView from "~/features/auth/components/LoginView.vue";
 
 const { t } = useI18n();
 

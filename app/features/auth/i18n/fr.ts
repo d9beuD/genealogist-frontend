@@ -1,0 +1,82 @@
+export default {
+  auth: {
+    login: "Connexion",
+    register: "Créer un compte",
+  },
+  home: {
+    eyebrow: "Genealogist",
+    heading: "Bon retour",
+    description:
+      "Vous êtes connecté avec {email}. Votre espace d'histoire familiale est prêt.",
+  },
+  navigation: {
+    trees: "Mes arbres",
+  },
+  trees: {
+    title: "Mes arbres",
+    eyebrow: "Arbres",
+    heading: "Mes arbres",
+    description: "Parcourez les arbres familiaux dont vous êtes propriétaire.",
+    createdAt: "Créé le {date}",
+    emptyTitle: "Aucun arbre pour le moment",
+    emptyDescription:
+      "Vos arbres familiaux apparaîtront ici une fois qu'ils seront créés.",
+    errorTitle: "Impossible de charger les arbres",
+    errorDescription: "Actualisez la page ou réessayez dans un instant.",
+  },
+  login: {
+    title: "Connexion",
+    heading: "Bon retour",
+    description:
+      "Connectez-vous pour gérer votre arbre familial, vos archives et vos notes synchronisés.",
+    emailLabel: "E-mail",
+    emailPlaceholder: "nom{'@'}exemple.com",
+    emailRequired: "L'e-mail est requis",
+    emailInvalid: "Saisissez une adresse e-mail valide",
+    passwordLabel: "Mot de passe",
+    passwordPlaceholder: "••••••••",
+    passwordRequired: "Le mot de passe est requis",
+    forgotPassword: "Mot de passe oublié ?",
+    submit: "Se connecter",
+    submitPending: "Connexion...",
+    error: "La connexion a échoué",
+    newHere: "Nouveau ici ?",
+    createAccount: "Créer un compte",
+    asideEyebrow: "Gardez l'histoire familiale en mouvement",
+    asideHeading:
+      "Un seul endroit pour les noms, les dates et les détails importants.",
+    asideSecurity: "Accès sécurisé à votre compte et à vos dossiers.",
+    asideQuickAccess:
+      "Connexion rapide pour les chercheurs et éditeurs de retour.",
+  },
+  register: {
+    title: "Créer un compte",
+    heading: "Créez votre compte",
+    description:
+      "Configurez l'accès pour enregistrer votre arbre familial, vos archives et vos notes au même endroit.",
+    firstnameLabel: "Prénom",
+    firstnamePlaceholder: "Jane",
+    lastnameLabel: "Nom",
+    lastnamePlaceholder: "Doe",
+    emailLabel: "E-mail",
+    emailPlaceholder: "nom{'@'}exemple.com",
+    emailRequired: "L'e-mail est requis",
+    emailInvalid: "Saisissez une adresse e-mail valide",
+    passwordLabel: "Mot de passe",
+    passwordPlaceholder: "••••••••",
+    firstnameRequired: "Le prénom est requis",
+    lastnameRequired: "Le nom est requis",
+    passwordMin: "Le mot de passe doit contenir au moins 8 caractères",
+    submit: "Créer le compte",
+    submitPending: "Création du compte...",
+    error: "L'inscription a échoué",
+    alreadyHaveAccount: "Vous avez déjà un compte ?",
+    signIn: "Se connecter",
+    asideEyebrow: "Commencez par l'essentiel",
+    asideHeading:
+      "Un espace clair pour rassembler les noms, les dates et les histoires.",
+    asideSecurity: "Gardez votre compte et vos données protégés dès le départ.",
+    asideQuickAccess:
+      "Accédez rapidement à votre espace une fois le compte prêt.",
+  },
+};

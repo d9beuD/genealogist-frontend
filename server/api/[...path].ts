@@ -1,4 +1,4 @@
-import type { H3Event } from "#imports";
+import type { H3Event } from "h3";
 
 const hopByHopHeaders = new Set([
   "connection",
@@ -11,9 +11,16 @@ const hopByHopHeaders = new Set([
   "upgrade",
 ]);
 
+const backendPathByBrowserPath: Record<string, string> = {
+  "auth/login": "/api/auth",
+  "register": "/api/register",
+  "auth/me": "/api/me",
+  "auth/logout": "/logout",
+};
+
 export default defineEventHandler(async (event: H3Event) => {
-  const config = useRuntimeConfig();
-  const apiBaseUrl = config.public.apiBaseUrl as string;
+  const config = useRuntimeConfig(event);
+  const apiBaseUrl = config.apiBaseUrl as string;
 
   if (!apiBaseUrl) {
     throw createError({
@@ -23,8 +30,9 @@ export default defineEventHandler(async (event: H3Event) => {
   }
 
   const path = getRouterParam(event, "path") || "";
-
-  const targetUrl = `${apiBaseUrl.replace(/\/$/, "")}/${path}`;
+  const apiOrigin = apiBaseUrl.replace(/\/+$/, "").replace(/\/api$/, "");
+  const backendPath = backendPathByBrowserPath[path] ?? `/api/${path}`;
+  const targetUrl = `${apiOrigin}${backendPath}`;
 
   const query = getQuery(event);
 
@@ -63,6 +71,8 @@ export default defineEventHandler(async (event: H3Event) => {
       body,
       query,
       redirect: "manual",
+      // Forward backend 4xx/5xx responses instead of treating them as proxy errors.
+      ignoreResponseError: true,
     });
 
     const setCookieHeader = response.headers.get("set-cookie");

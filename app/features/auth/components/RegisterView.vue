@@ -1,26 +1,24 @@
 <script setup lang="ts">
-import { useMutation } from "@tanstack/vue-query";
 import { toTypedSchema } from "@vee-validate/zod";
 import { useForm } from "vee-validate";
-import { z } from "zod";
 import CenteredCardLayout from "~/components/layout/CenteredCardLayout.vue";
-import { registerWithCredentials } from "../api/register";
+import { useAuth } from "../composables/useAuth";
+import { createRegisterCredentialsSchema } from "../schema/registerCredentials";
 
 const { t } = useI18n();
+const localePath = useLocalePath();
 const router = useRouter();
 const activeTab = ref("register");
-
-const schema = toTypedSchema(
-  z.object({
-    email: z.string().min(1, t("register.emailRequired")).email(t("register.emailInvalid")),
-    firstname: z.string().min(1, t("register.firstnameRequired")),
-    lastname: z.string().min(1, t("register.lastnameRequired")),
-    plainPassword: z.string().min(8, t("register.passwordMin")),
-  }),
-);
+const { register, loading, error } = useAuth();
 
 const form = useForm({
-  validationSchema: schema,
+  validationSchema: toTypedSchema(createRegisterCredentialsSchema({
+    emailRequired: t("register.emailRequired"),
+    emailInvalid: t("register.emailInvalid"),
+    firstnameRequired: t("register.firstnameRequired"),
+    lastnameRequired: t("register.lastnameRequired"),
+    passwordMin: t("register.passwordMin"),
+  })),
   initialValues: {
     email: "",
     firstname: "",
@@ -29,18 +27,9 @@ const form = useForm({
   },
 });
 
-const mutation = useMutation({
-  mutationFn: registerWithCredentials,
-  onSuccess: async () => {
-    await router.push("/login");
-  },
-});
-
-const hasRegistrationError = computed(() => mutation.isError.value);
-const isRegistering = computed(() => mutation.isPending.value);
-
 const onSubmit = form.handleSubmit(async (values) => {
-  await mutation.mutateAsync(values);
+  await register(values);
+  await router.push(localePath("/login"));
 });
 </script>
 
@@ -115,12 +104,12 @@ const onSubmit = form.handleSubmit(async (values) => {
         </FormItem>
       </FormField>
 
-      <p v-if="hasRegistrationError" class="text-destructive text-sm">
+      <p v-if="error" class="text-destructive text-sm" role="alert">
         {{ t("register.error") }}
       </p>
 
-      <Button class="w-full" type="submit" :disabled="isRegistering || undefined">
-        {{ isRegistering ? t("register.submitPending") : t("register.submit") }}
+      <Button class="w-full" type="submit" :disabled="loading || undefined">
+        {{ loading ? t("register.submitPending") : t("register.submit") }}
       </Button>
     </form>
 

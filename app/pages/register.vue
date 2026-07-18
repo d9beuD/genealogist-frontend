@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import RegisterView from "~/features/register/components/RegisterView.vue";
+import RegisterView from "~/features/auth/components/RegisterView.vue";
 
 const { t } = useI18n();
 
