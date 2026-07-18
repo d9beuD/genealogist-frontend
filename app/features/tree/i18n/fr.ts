@@ -28,5 +28,11 @@ export default {
       "Vos arbres familiaux apparaîtront ici une fois qu'ils seront créés.",
     errorTitle: "Impossible de charger les arbres",
     errorDescription: "Actualisez la page ou réessayez dans un instant.",
+    detail: {
+      loadingTitle: "Chargement de l'arbre...",
+      notFoundTitle: "Arbre introuvable",
+      notFoundDescription: "Cet arbre n'existe pas ou vous n'y avez plus accès.",
+      backToDashboard: "Retour au tableau de bord",
+    },
   },
 };

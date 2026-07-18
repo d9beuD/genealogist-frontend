@@ -5,5 +5,7 @@ export async function createTree(
   gateway: TreeGateway,
   input: CreateTreeInput,
 ): Promise<Tree> {
-  return await gateway.createTree(input);
+  const result = await gateway.createTree(input);
+
+  return { id: result.id, name: result.name, createdAt: result.createdAt };
 }

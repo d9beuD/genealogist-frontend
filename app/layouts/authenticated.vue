@@ -5,6 +5,7 @@ import { useTrees } from "~/features/tree/presentation/composables/useTrees";
 
 const { user } = useAuth();
 const { t } = useI18n();
+const localePath = useLocalePath();
 
 const { selectedTree, setSelectedTree } = useSelectedTree();
 const { trees, pending: treesPending, error: treesError } = await useTrees();
@@ -33,6 +34,7 @@ const selectedTreeId = computed({
     // SelectItem values emitted before trees are loaded.
     if (tree) {
       setSelectedTree(tree);
+      navigateTo(localePath(`/trees/${tree.id}`));
     }
   },
 });

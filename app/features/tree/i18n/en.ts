@@ -27,5 +27,11 @@ export default {
       "Your owned family trees will appear here once they are created.",
     errorTitle: "Could not load trees",
     errorDescription: "Refresh the page or try again in a moment.",
+    detail: {
+      loadingTitle: "Loading tree...",
+      notFoundTitle: "Tree not found",
+      notFoundDescription: "This tree does not exist or you no longer have access.",
+      backToDashboard: "Back to dashboard",
+    },
   },
 };

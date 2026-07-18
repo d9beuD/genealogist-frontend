@@ -1,9 +1,16 @@
 <script setup lang="ts">
 import CreateTreeDialog from "./CreateTreeDialog.vue";
 import { useTrees } from "../composables/useTrees";
+import type { Tree } from "~/features/tree/domain/tree";
 
 const { t, locale } = useI18n();
+const localePath = useLocalePath();
+const { selectedTree, setSelectedTree } = useSelectedTree();
 const { trees, pending, error, createTree, createPending } = await useTrees();
+
+function onTreeClick(tree: Tree) {
+  setSelectedTree(tree);
+}
 
 const dateFormatter = computed(
   () => new Intl.DateTimeFormat(locale.value, { dateStyle: "medium" }),
@@ -76,14 +83,22 @@ function formatCreatedAt(createdAt: string) {
     </Empty>
 
     <div v-else class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-      <Card v-for="tree in trees" :key="tree.id">
-        <CardHeader>
-          <CardTitle>{{ tree.name }}</CardTitle>
-          <CardDescription>
-            {{ t("trees.createdAt", { date: formatCreatedAt(tree.createdAt) }) }}
-          </CardDescription>
-        </CardHeader>
-      </Card>
+      <NuxtLinkLocale
+        v-for="tree in trees"
+        :key="tree.id"
+        :to="localePath(`/trees/${tree.id}`)"
+        class="no-underline"
+        @click="onTreeClick(tree)"
+      >
+        <Card class="transition-colors hover:bg-accent">
+          <CardHeader>
+            <CardTitle>{{ tree.name }}</CardTitle>
+            <CardDescription>
+              {{ t("trees.createdAt", { date: formatCreatedAt(tree.createdAt) }) }}
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      </NuxtLinkLocale>
     </div>
   </section>
 </template>
