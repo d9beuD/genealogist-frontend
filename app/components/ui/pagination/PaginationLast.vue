@@ -17,6 +17,8 @@ const props = withDefaults(defineProps<PaginationLastProps & {
 
 const delegatedProps = reactiveOmit(props, "class", "size")
 const forwarded = useForwardProps(delegatedProps)
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -26,7 +28,7 @@ const forwarded = useForwardProps(delegatedProps)
     v-bind="forwarded"
   >
     <slot>
-      <span class="hidden sm:block">Last</span>
+      <span class="hidden sm:block">{{ t("common.last") }}</span>
       <ChevronRightIcon />
     </slot>
   </PaginationLast>

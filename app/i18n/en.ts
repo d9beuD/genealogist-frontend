@@ -1,0 +1,20 @@
+export default {
+  common: {
+    breadcrumb: "Breadcrumb",
+    close: "Close",
+    commandPalette: "Command Palette",
+    commandSearch: "Search for a command to run...",
+    first: "First",
+    last: "Last",
+    loading: "Loading",
+    more: "More",
+    morePages: "More pages",
+    next: "Next",
+    nextSlide: "Next Slide",
+    previous: "Previous",
+    previousSlide: "Previous Slide",
+    sidebar: "Sidebar",
+    sidebarDescription: "Displays the mobile sidebar.",
+    toggleSidebar: "Toggle Sidebar",
+  },
+};

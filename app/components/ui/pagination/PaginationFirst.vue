@@ -17,6 +17,8 @@ const props = withDefaults(defineProps<PaginationFirstProps & {
 
 const delegatedProps = reactiveOmit(props, "class", "size")
 const forwarded = useForwardProps(delegatedProps)
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -27,7 +29,7 @@ const forwarded = useForwardProps(delegatedProps)
   >
     <slot>
       <ChevronLeftIcon />
-      <span class="hidden sm:block">First</span>
+      <span class="hidden sm:block">{{ t("common.first") }}</span>
     </slot>
   </PaginationFirst>
 </template>
