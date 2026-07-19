@@ -86,7 +86,7 @@ function formatCreatedAt(createdAt: string) {
       <NuxtLinkLocale
         v-for="tree in trees"
         :key="tree.id"
-        :to="localePath(`/trees/${tree.id}`)"
+        :to="localePath(`/trees/${tree.id}/people`)"
         class="no-underline"
         @click="onTreeClick(tree)"
       >

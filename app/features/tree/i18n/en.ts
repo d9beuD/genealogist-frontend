@@ -4,8 +4,10 @@ export default {
   },
   sidebar: {
     treeSelectorPlaceholder: "Select a tree",
+    treeSelectorAriaLabel: "Select a tree",
     treeSelectorNoTrees: "No trees available",
     treeNavLabel: "Tree navigation",
+    treeNavPeople: "People",
   },
   trees: {
     title: "My trees",
