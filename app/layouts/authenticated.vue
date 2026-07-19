@@ -86,11 +86,8 @@ const selectedTreeId = computed({
 
         <!-- Tree-internal navigation (only when a tree is selected) -->
         <SidebarGroup v-if="hasSelectedTree">
+          <SidebarGroupLabel>{{ t("sidebar.treeNavLabel") }}</SidebarGroupLabel>
           <SidebarMenu>
-            <p class="px-2 text-xs font-medium text-sidebar-foreground/50">
-              {{ t("sidebar.treeNavLabel") }}
-            </p>
-            <!-- Tree-internal links will be added here as routes are created. -->
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
